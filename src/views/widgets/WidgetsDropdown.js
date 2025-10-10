@@ -63,21 +63,21 @@ const WidgetsDropdown = (props) => {
     fetchMonthlyTotals();
   }, []);
 
-  useEffect(() =>{
-    const Admintoken = localStorage.getItem('admintoken');
-      axios.get(ROOT_URL+'/api/auth/getuser',{
-          headers: {
-            Authorization: `Bearer ${Admintoken}`,
-          }
-          })
-      .then(userdata => setuserdata(userdata.data.data))
-      .catch((err) =>{
-        console.log(err);
-        swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
-        localStorage.removeItem('Admintoken');
-        navigate('/');
-      } )    
-  }, []);
+  // useEffect(() =>{
+  //   const Admintoken = localStorage.getItem('admintoken');
+  //     axios.get(ROOT_URL+'/api/auth/getuser',{
+  //         headers: {
+  //           Authorization: `Bearer ${Admintoken}`,
+  //         }
+  //         })
+  //     .then(userdata => setuserdata(userdata.data.data))
+  //     .catch((err) =>{
+  //       console.log(err);
+  //       swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
+  //       localStorage.removeItem('Admintoken');
+  //       navigate('/');
+  //     } )    
+  // }, []);
   useEffect(() =>{
       axios.get(ROOT_URL+'/api/v1/get_course')
       .then(coursedata => setcoursedata(coursedata.data.data))
@@ -118,7 +118,7 @@ const WidgetsDropdown = (props) => {
           title=" Total Users"
           value={
             <>
-              <span className='h2'>{userdata.length}</span>
+              <span className='h2'>0</span>
             </>
           }  
         />
@@ -129,7 +129,7 @@ const WidgetsDropdown = (props) => {
           value={
             <>
               <span className="h2">
-                {coursedata.length}
+                0
               </span>
             </>
           }
@@ -143,7 +143,7 @@ const WidgetsDropdown = (props) => {
             <>
              
               <span className="h2">
-              {totaldata}
+              0
               </span>
             </>
           }
@@ -152,71 +152,21 @@ const WidgetsDropdown = (props) => {
         />
       </CCol>
       <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsA
+        <CWidgetStatsA className='widgetheight'
           color="danger"
-          // value={
-          //   <>
+          value={
+            <>
              
-          //     <span className="fs-6 fw-normal">
-          //       {data.data}
-          //     </span>
-          //   </>
-          // }
-          title="Month wise total amount"
-          // action={
-          //   <CDropdown alignment="end">
-          //     <CDropdownToggle color="transparent" caret={false} className="text-white p-0">
-          //       <CIcon icon={cilOptions} />
-          //     </CDropdownToggle>
-          //     <CDropdownMenu>
-          //       <CDropdownItem>Action</CDropdownItem>
-          //       <CDropdownItem>Another action</CDropdownItem>
-          //       <CDropdownItem>Something else here...</CDropdownItem>
-          //       <CDropdownItem disabled>Disabled action</CDropdownItem>
-          //     </CDropdownMenu>
-          //   </CDropdown>
-          // }
-          chart={
-            <CChartBar
-              className="mt-3 mx-3"
-              style={{ height: '70px' }}
-              data={data}
-              options={{
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                },
-                scales: {
-                  x: {
-                    grid: {
-                      display: false,
-                      drawTicks: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
-                  },
-                  y: {
-                    border: {
-                      display: false,
-                    },
-                    grid: {
-                      display: false,
-                      drawBorder: false,
-                      drawTicks: false,
-                    },
-                    ticks: {
-                      display: false,
-                    },
-                  },
-                },
-              }}
-            />
+              <span className="h2">
+              0
+              </span>
+            </>
           }
+          title="Monthly Wise Total amount"
+        
         />
       </CCol>
+     
     </CRow>
   )
 }

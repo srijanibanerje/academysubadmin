@@ -1,11 +1,13 @@
+import { element } from 'prop-types'
 import React from 'react'
 
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Addproduct = React.lazy(() => import('./views/Addproduct'))
 const Addsection = React.lazy(() => import('./views/Addsection'))
 const Addchapter = React.lazy(() => import('./views/Addchapter'))
-const Addblog = React.lazy(() => import('./components/Blogs/Addblog'))
-const Allblog = React.lazy(() => import('./components/Blogs/Allblog'))
+const Pendingkyc = React.lazy(() => import('./components/Blogs/Pendingkyc'))
+const Approvedkyc = React.lazy(() => import('./components/Blogs/Approvedkyc'))
+const Rejectedkyc = React.lazy(() => import('./components/Blogs/Removedkyc'))
 const Editblog = React.lazy(() => import('./components/Blogs/Editblog'))
 const Userlist = React.lazy(() => import('./components/Userlist'))
 const Viewuserlist = React.lazy(() => import('./components/Viewuserlist'))
@@ -25,6 +27,9 @@ const Contactus = React.lazy(() => import('./views/Contactus'))
 
 const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
 const Allreview = React.lazy(() => import('./components/Reviews/Allreview'))
+const Allcourses = React.lazy(() => import('./components/Courses/Allcourses'))
+const payout = React.lazy(() => import('./components/Payout/payout'))
+
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -34,10 +39,14 @@ const routes = [
   { path: '/addchapter', name: 'Addchapter', element: Addchapter },
   { path: '/addteacher', name: 'Addteacher', element: Addteacher },
   { path: '/teacher/alluser', name: 'Alluser', element: Alluserlist },
+
   { path: '/allreview', name: 'Allreview', element: Allreview},
+   {path: '/allcourses', name:'Allcourses' , element: Allcourses},
   { path: '/viewreview/:id', name: 'Viewreview', element: Viewreview},
-  { path: '/addblog', name: 'Addblog', element: Addblog },
-  { path: '/allblog', name: 'Allblog', element: Allblog },
+  { path: '/pendingkyc', name: 'Pendingkyc', element: Pendingkyc },
+  { path: '/approvedkyc', name: 'Approvedkyc', element: Approvedkyc },
+  { path: '/rejectedkyc', name: 'Rejectedkyc', element: Rejectedkyc},
+  {path:'/payout', name:'Payout', element: payout},
   { path: '/editblog/:id', name: 'Editblog', element: Editblog },
   { path: '/userlist', name: 'Userlist', element: Userlist },
   { path: '/editcourse/:id', name: 'Editcourse', element: Viewcourse },
@@ -46,14 +55,14 @@ const routes = [
   { path: '/order', name: 'order', element: Order },
   { path: '/invoice', name: 'invoice', element: Invoice },
   { path: '/invoicelist/:id', name: 'invoicelist', element: Invoicelist },
-  { path: '/adduser', name: 'Adduser', element: Adduser },
+  { path: '/adduser', name: 'All User',element: Adduser },
   { path: '/Offlineuser', name: 'Offlineuser', element: Offlineuser },
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/contactus', name: 'Theme', element: Contactus},
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/theme/typography', name: 'Typography', element: Typography },
-  
+ 
   { path: '/widgets', name: 'Widgets', element: Widgets },
 ]
 export default routes

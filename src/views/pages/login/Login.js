@@ -27,53 +27,40 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   
-
-  const handleSubmit = (event) => {
+const handleSubmit = (event) => {
     event.preventDefault();
-    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-    console.log(ROOT_URL);
-    if (username === "" || password === "") {
-      swal("Opps!", "Please fill out all required fields!", "error");
-    }
-    else {
- 
-        //  alert("submit");
-      axios.post(ROOT_URL+'/api/auth/admin', { username, password })
-        .then(res => {
-          console.log(res);
-          localStorage.setItem('admintoken', res.data.admin_token);
-
-          swal("Welcome!", "You have successfully logged into the admin panel.", "success");
-           navigate('/dashboard');
-          // navigate('/course');
-
-        })
-        .catch(err => {
-          console.log(err);
-          swal("Opps!", "username or password icorrect!", "error");
-        })
-    }
+  navigate('/dashboard');
   }
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+  //   console.log(ROOT_URL);
+  //   if (username === "" || password === "") {
+  //     swal("Opps!", "Please fill out all required fields!", "error");
+  //   }
+  //   else {
+ 
+  //       //  alert("submit");
+  //     axios.post(ROOT_URL+'/api/auth/admin', { username, password })
+  //       .then(res => {
+  //         console.log(res);
+  //         localStorage.setItem('admintoken', res.data.admin_token);
+
+  //         swal("Welcome!", "You have successfully logged into the admin panel.", "success");
+  //          navigate('/dashboard'); 
+
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //         swal("Opps!", "username or password icorrect!", "error");
+  //       })
+  //   }
+  // }
 
   return (
     <div className="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
-      <CTabs className='tab'>
-        <CNav variant="tabs" >
-          <CNavItem className='admin'>
-            <CNavLink ><Link to={"/"} style={{"textDecoration":"none" , color:"white"}}>
-           Admin
-           </Link>
-            </CNavLink>
-          </CNavItem>
-          <CNavItem className='teacher'>
-            <CNavLink ><Link to={"/teacherlogin"} style={{"textDecoration":"none" , color:"white"}}>
-              Teacher
-              </Link>
-            </CNavLink>
-          </CNavItem>
-        </CNav>
-      </CTabs>
+    
         <CRow className="justify-content-center">
           <CCol md={8}>
           

@@ -14,83 +14,78 @@ const _nav = [
     name: 'Dashboard',
     to: '/dashboard',
     icon: <CIcon icon={cilSpeedometer} customClassName="nav-icon" />,
-    badge: {
-      color: 'info',
-      text: 'NEW',
-    },
+   
   },
   {
     component: CNavTitle,
     name: 'Course',
   },
+  // {
+  //   component: CNavItem,
+  //   name: 'Add Course',
+  //   to: '/Addproduct',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
   {
     component: CNavItem,
-    name: 'Add Course',
-    to: '/Addproduct',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'All Courses',
-    to: '/dashboard',
+    name: 'All Packages',
+    to: '/allcourses',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  {
-    component: CNavTitle,
-    name: 'Teacher',
-  },
-  {
-    component: CNavItem,
-    name: 'Add Teacher',
-    to: '/Addteacher',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'User review',
-  },
-  {
-    component: CNavItem,
-    name: 'User reviews',
-    to: '/allreview',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'Contact Form',
-  },
-  {
-    component: CNavItem,
-    name: 'All User',
-    to: '/contactus',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'Blog',
-  },
-  {
-    component: CNavItem,
-    name: 'Addblog',
-    to: '/Addblog',
-    icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Allblog',
-    to: '/Allblog',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Teacher',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Add Teacher',
+  //   to: '/Addteacher',
+  //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
+  // },
   {
     component: CNavTitle,
     name: 'User',
   },
   {
     component: CNavItem,
-    name: 'Userlist',
+    name: 'All Users',
     to: '/userlist',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
+  {
+    component: CNavTitle,
+    name: 'Payout',
+  },
+  {
+    component: CNavItem,
+    name: 'All payouts',
+    to: '/payout',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  
+  {
+    component: CNavTitle,
+    name: 'KYC',
+  },
+  {
+    component: CNavItem,
+    name: 'Pending KYC',
+    to: '/pendingkyc',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Approved KYC',
+    to: '/approvedkyc',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Rejected KYC',
+    to: '/rejectedkyc',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  
   // {
   //   component: CNavItem,
   //   name: 'Offlineuser',
@@ -99,28 +94,33 @@ const _nav = [
   // },
 
   
-  {
-    component: CNavTitle,
-    name: 'Order',
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Order',
+  // },
+
   // {
   //   component: CNavItem,
-  //   name: ' Offline Orders',
-  //   to: '/order',
+  //   name: ' Online Orders',
+  //   to: '/onlineorder',
   //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   // },
-  {
-    component: CNavItem,
-    name: ' Online Orders',
-    to: '/onlineorder',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Invoice',
-    to: '/invoice',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavItem,
+  //   name: 'Invoice',
+  //   to: '/invoice',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Contact Form',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All User',
+  //   to: '/contactus',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
 
   //     {
   //       component: CNavItem,

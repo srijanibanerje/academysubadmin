@@ -28,100 +28,118 @@ const Dashboard = () => {
   
   // console.log(ROOT_URL)
 
-  useEffect(() => {
-    axios.get(ROOT_URL+'/api/v1/get_course')
+//   useEffect(() => {
+//     axios.get(ROOT_URL+'/api/v1/get_course')
     
-    .then((productdata) =>{
-      setproductdata(productdata.data.data);
-      console.log(productdata.data.data);
-    } )
-    .catch((err) =>{
-       console.log(err)
+//     .then((productdata) =>{
+//       setproductdata(productdata.data.data);
+//       console.log(productdata.data.data);
+//     } )
+//     .catch((err) =>{
+//        console.log(err)
         
-     }
-    )
+//      }
+//     )
      
-}, []);
+// }, []);
 
 
 
-const handleDelete = async (id) => {
-  try {
-    // const id = document.getElementById('courseid').innerHTML;
-    // console.log(id);
-    await axios.delete(ROOT_URL+`/api/v1/deletecourse/${id}`);
-    swal("Deleted!", "Course has been deleted.", "success");
-    window.location.reload();
-  } catch (error) {
-    swal("Error!", "Failed to delete the course.", "error");
-    console.error('Error deleting course', error);
-  }
-};
-const confirmDelete = (productid) => {
-  console.log("course ID to be deleted:", productid); 
+// const handleDelete = async (id) => {
+//   try {
+//     // const id = document.getElementById('courseid').innerHTML;
+//     // console.log(id);
+//     await axios.delete(ROOT_URL+`/api/v1/deletecourse/${id}`);
+//     swal("Deleted!", "Course has been deleted.", "success");
+//     window.location.reload();
+//   } catch (error) {
+//     swal("Error!", "Failed to delete the course.", "error");
+//     console.error('Error deleting course', error);
+//   }
+// };
+// const confirmDelete = (productid) => {
+//   console.log("course ID to be deleted:", productid); 
   
-  swal({
-    title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this course!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  }).then((willDelete) => {
-    if (willDelete) {
-      handleDelete(productid);
-    } else {
-      swal("Your course is safe!");
-    }
-  });
-};
+//   swal({
+//     title: "Are you sure?",
+//     text: "Once deleted, you will not be able to recover this course!",
+//     icon: "warning",
+//     buttons: true,
+//     dangerMode: true,
+//   }).then((willDelete) => {
+//     if (willDelete) {
+//       handleDelete(productid);
+//     } else {
+//       swal("Your course is safe!");
+//     }
+//   });
+// };
 
   return (
     <>
       <WidgetsDropdown className="mb-4" />
       
         <CCardHeader>
-          <h5 className='text-center mb-2'>All Products</h5>
+          <h5 className='text-center mb-2'>All Packages</h5>
         </CCardHeader>
         <CCardBody>
           <CTable responsive="sm" color="dark">
             <CTableHead>
               <CTableRow>
-                <CTableHeaderCell scope="col">Course_id</CTableHeaderCell>
+               
                 <CTableHeaderCell scope="col">Course name</CTableHeaderCell>
-                {/* <CTableHeaderCell scope="col">Review</CTableHeaderCell> */}
-                <CTableHeaderCell scope="col">Total video</CTableHeaderCell>
-                <CTableHeaderCell scope="col">Teacher name</CTableHeaderCell>
-                {/* <CTableHeaderCell scope="col">Teacher dept</CTableHeaderCell> */}
                 <CTableHeaderCell scope="col">Course price</CTableHeaderCell>
-                <CTableHeaderCell scope="col">Course image</CTableHeaderCell>
-                <CTableHeaderCell scope="col" className='text-center'>Action</CTableHeaderCell>
-              </CTableRow>
+             </CTableRow>
             </CTableHead>
             <CTableBody>
-             {
+            <CTableRow active >
+                <CTableDataCell>Learner Course</CTableDataCell>
+                <CTableDataCell>1770/-</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell>Master Course</CTableDataCell>
+                <CTableDataCell>3540/-</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell>Pro Master Course</CTableDataCell>
+                <CTableDataCell>7080/-</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell>Teacher Course</CTableDataCell>
+                <CTableDataCell>11800/-</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell>Pro Teacher Course</CTableDataCell>
+                <CTableDataCell>59000/-</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell>Monthly Subcription</CTableDataCell>
+                <CTableDataCell>944/-</CTableDataCell>
+            </CTableRow>
+             {/* {
               productdata.map((product) => {
                 return <CTableRow active key={product._id} >
                   <CTableDataCell id='courseid'>{product._id}</CTableDataCell>
                     <CTableDataCell>{product.course_name}</CTableDataCell>
-                    {/* <CTableDataCell>{product.course_review}</CTableDataCell> */}
+                    
                     <CTableDataCell>{product.total_video}</CTableDataCell>
                     <CTableDataCell>{product.teacher_name}</CTableDataCell>
                     
-                    {/* <CTableDataCell>{product.teacher_dept}</CTableDataCell> */}
+               
                     <CTableDataCell>{product.course_price}</CTableDataCell>
                     <CTableDataCell><img width={100} height={100} src={product.image}/></CTableDataCell>
                     <CTableDataCell className='col-1'>
                             <div className='d-flex'>
                             <Link to={`/editcourse/${product._id}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1 editicon"></i></Link>
                             <button className="btn" onClick={()=>confirmDelete(product._id)}><i className="fa fa-trash-o editicon"></i></button>
-                           {/* <button><i className="fa fa-trash-o ms-4 editicon"></i></button> */}
+                         
                             </div>
                             
                         </CTableDataCell>
 
                 </CTableRow>
               })
-             }
+             } */}
             </CTableBody>
           </CTable>
         </CCardBody>

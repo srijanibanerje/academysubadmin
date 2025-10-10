@@ -17,23 +17,23 @@ const Userlist = () => {
     const navigate = useNavigate()
     const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
     const [userdata, setuserdata] = useState([])
-    useEffect(() =>{
-        const Admintoken = localStorage.getItem('admintoken');
-        axios.get(ROOT_URL+'/api/auth/getuser',{
-            headers: {
-              Authorization: `Bearer ${Admintoken}`,
-            }
-            })
-        .then(userdata => setuserdata(userdata.data.data))
-        .catch((err) => {
-            console.log(err);
-            swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
-            localStorage.removeItem('Admintoken');
-        navigate('/');
-        });
+    // useEffect(() =>{
+    //     const Admintoken = localStorage.getItem('admintoken');
+    //     axios.get(ROOT_URL+'/api/auth/getuser',{
+    //         headers: {
+    //           Authorization: `Bearer ${Admintoken}`,
+    //         }
+    //         })
+    //     .then(userdata => setuserdata(userdata.data.data))
+    //     .catch((err) => {
+    //         console.log(err);
+    //         swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
+    //         localStorage.removeItem('Admintoken');
+    //     navigate('/');
+    //     });
     
        
-    }, []);
+    // }, []);
     
     return (
         <>
@@ -50,13 +50,27 @@ const Userlist = () => {
                         <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>User_id</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Email_id</CTableHeaderCell>
+                        <CTableHeaderCell scope="col" className='col-3'>Address</CTableHeaderCell>
                         <CTableHeaderCell scope="col" className='col-3'>Phone number</CTableHeaderCell>
-                       
                         <CTableHeaderCell scope="col" className='col-1'>Action</CTableHeaderCell>
                     </CTableRow>
                 </CTableHead>
                 <CTableBody align="middle" >
-                {
+                  <CTableRow active  >
+                  <CTableDataCell >Testing</CTableDataCell>
+                    <CTableDataCell>123456</CTableDataCell>
+                    <CTableDataCell>s@gmail.com</CTableDataCell>
+                    <CTableDataCell>hhhjhj</CTableDataCell>
+                     <CTableDataCell>1234567895</CTableDataCell>
+                        <CTableDataCell className='col-1'>
+                            <div className='d-flex'>
+                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
+                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
+                            </div>  
+                        </CTableDataCell>
+
+                </CTableRow>
+                {/* {
               userdata.map((user , index) => {
                 return <CTableRow active key={index} >
                   <CTableDataCell >{user.fullname}</CTableDataCell>
@@ -67,14 +81,12 @@ const Userlist = () => {
                             <div className='d-flex'>
                             <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
                             <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
-
-                            </div>
-                            
+                            </div>  
                         </CTableDataCell>
 
                 </CTableRow>
               })
-             }       
+             }        */}
                 </CTableBody>
             </CTable>
 

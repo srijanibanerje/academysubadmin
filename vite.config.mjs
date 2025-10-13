@@ -48,10 +48,16 @@ export default defineConfig(({ mode }) => {
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue', '.scss'],
     },
     server: {
+      host: true, // allow external network access (important for Render)
       port: 5000,
       proxy: {
-        // https://vitejs.dev/config/server-options.html
+        // define any API proxy rules if needed
       },
+    },
+    preview: {
+      port: 5000,
+      allowedHosts: ['dashboard-h2rx.onrender.com'], // ✅ add your Render domain here
     },
   }
 })
+

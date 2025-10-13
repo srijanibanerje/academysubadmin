@@ -12,26 +12,32 @@ const Allcourses = () => {
             <div className="card-body d-flex flex-column">
               <h3 className="text-center fw-bold">Learner Course</h3>
               <div className="fw-bold h5 text-center mt-2">RS. 1770(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 1500</div>
               <div className="flex-grow-1">
                 <div className="d-flex mt-2">
+
                   <div>🌟</div>
-                  <div className="ms-2"> Basic trading knowledge</div>
+                  <div className="ms-2"> BASIC CRYPTO KNOWLEDGE</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2"> Meme coin name</div>
+                  <div className="ms-2">BASIC BUY/SELL ON CENTRALISED EXCHANGE</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">1-month subscription for premium</div>
+                  <div className="ms-2">CRYPTO SIP GUIDE</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Bonus 1-2 long-term GEM coin</div>
+                  <div className="ms-2">PORTFOLIO MANAGEMENT GUIDE</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Monthly Scholarship 3%</div>
+                  <div className="ms-2">MONTHLY SPOT CALL</div>
+                </div>
+                 <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">BASIC FUNDAMENTAL ANALYSIS, TECHNICAL ANALYSIS</div>
                 </div>
               </div>
             </div>
@@ -47,7 +53,9 @@ const Allcourses = () => {
             <div className="card-body d-flex flex-column">
               <h3 className="text-center fw-bold">Master Course</h3>
               <div className="fw-bold h5 text-center mt-2">RS. 3540(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 3000</div>
               <div className="flex-grow-1">
+              
                 <div className="d-flex mt-2">
                   <div>🌟</div>
                   <div className="ms-2"> Advance crypto knowledge</div>
@@ -91,6 +99,7 @@ const Allcourses = () => {
             <div className="card-body d-flex flex-column">
               <h3 className="text-center fw-bold">Pro Master Course</h3>
               <div className="fw-bold h5 text-center">RS. 7080(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 6000</div>
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
@@ -120,6 +129,7 @@ const Allcourses = () => {
             <div className="card-body d-flex flex-column">
               <h3 className="text-center fw-bold">Teacher Course</h3>
               <div className="fw-bold h5 text-center">RS. 11800(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 10,000</div>
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
@@ -148,6 +158,7 @@ const Allcourses = () => {
             <div className="card-body d-flex flex-column">
               <h3 className="text-center fw-bold">Pro Teacher Course</h3>
               <div className="fw-bold h5 text-center">RS. 59000(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 25,000</div>
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
@@ -179,6 +190,7 @@ const Allcourses = () => {
                 Monthly subscription
               </h3>
               <div className="fw-bold h5 text-center mt-3">RS. 944(Incl. GST)</div>
+              <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 800</div>
               {/* <div className="flex-grow-1">
               <div className="d-flex">
                 <div>🌟</div>

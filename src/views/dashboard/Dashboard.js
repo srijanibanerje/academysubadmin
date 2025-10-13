@@ -88,32 +88,49 @@ const Dashboard = () => {
               <CTableRow>
                
                 <CTableHeaderCell scope="col">Course name</CTableHeaderCell>
+                 <CTableHeaderCell scope="col">GST</CTableHeaderCell>
+                 <CTableHeaderCell scope="col">Actual Price</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Course price</CTableHeaderCell>
              </CTableRow>
             </CTableHead>
             <CTableBody>
             <CTableRow active >
                 <CTableDataCell>Learner Course</CTableDataCell>
+                
+                <CTableDataCell>270/-</CTableDataCell>
+                <CTableDataCell>1500/-</CTableDataCell>
+
                 <CTableDataCell>1770/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
                 <CTableDataCell>Master Course</CTableDataCell>
+                 <CTableDataCell>540/-</CTableDataCell>
+                  <CTableDataCell>3000/-</CTableDataCell>
                 <CTableDataCell>3540/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
                 <CTableDataCell>Pro Master Course</CTableDataCell>
+                <CTableDataCell>1080/-</CTableDataCell>
+                 <CTableDataCell>6000/-</CTableDataCell>
                 <CTableDataCell>7080/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
                 <CTableDataCell>Teacher Course</CTableDataCell>
+                <CTableDataCell>1800/-</CTableDataCell>
+                 <CTableDataCell>10000/-</CTableDataCell>
+
                 <CTableDataCell>11800/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
                 <CTableDataCell>Pro Teacher Course</CTableDataCell>
+                <CTableDataCell>9000/-</CTableDataCell>
+                  <CTableDataCell>50000/-</CTableDataCell>
                 <CTableDataCell>59000/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
                 <CTableDataCell>Monthly Subcription</CTableDataCell>
+                <CTableDataCell>144/-</CTableDataCell>
+                 <CTableDataCell>800/-</CTableDataCell>
                 <CTableDataCell>944/-</CTableDataCell>
             </CTableRow>
              {/* {

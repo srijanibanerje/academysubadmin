@@ -1,97 +1,101 @@
 /* eslint-disable prettier/prettier */
-import React,{ useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import {
-    CTable,
-    CTableBody,
-    CTableDataCell,
-    CTableHead,
-    CTableHeaderCell,
-    CTableRow,
+  CCardHeader,
+  CTable,
+  CTableHead,
+  CTableRow,
+  CTableHeaderCell,
+  CTableBody,
+  CTableDataCell,
+  CFormInput,
 } from '@coreui/react'
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import swal from 'sweetalert';
 
 const Userlist = () => {
-    const navigate = useNavigate()
-    const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-    const [userdata, setuserdata] = useState([])
-    // useEffect(() =>{
-    //     const Admintoken = localStorage.getItem('admintoken');
-    //     axios.get(ROOT_URL+'/api/auth/getuser',{
-    //         headers: {
-    //           Authorization: `Bearer ${Admintoken}`,
-    //         }
-    //         })
-    //     .then(userdata => setuserdata(userdata.data.data))
-    //     .catch((err) => {
-    //         console.log(err);
-    //         swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
-    //         localStorage.removeItem('Admintoken');
-    //     navigate('/');
-    //     });
-    
-       
-    // }, []);
-    
-    return (
-        <>
-            <div className='fw-bold'>
-                <div className='row'>
-                    <div className='col'>
-                    <h3>All Users</h3>
-                    </div>
-                </div>
-                </div>
-            <CTable  responsive="sm" color="dark" className='mt-2'>
-                <CTableHead align="middle">
-                    <CTableRow  >
-                        <CTableHeaderCell scope="col" className='col-2' >Name</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>User_id</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>Email_id</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>Address</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-3'>Phone number</CTableHeaderCell>
-                        <CTableHeaderCell scope="col" className='col-1'>Action</CTableHeaderCell>
-                    </CTableRow>
-                </CTableHead>
-                <CTableBody align="middle" >
-                  <CTableRow active  >
-                  <CTableDataCell >Testing</CTableDataCell>
-                    <CTableDataCell>123456</CTableDataCell>
-                    <CTableDataCell>s@gmail.com</CTableDataCell>
-                    <CTableDataCell>hhhjhj</CTableDataCell>
-                     <CTableDataCell>1234567895</CTableDataCell>
-                        <CTableDataCell className='col-1'>
-                            <div className='d-flex'>
-                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
-                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
-                            </div>  
-                        </CTableDataCell>
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [query, setQuery] = useState('')
 
-                </CTableRow>
-                {/* {
-              userdata.map((user , index) => {
-                return <CTableRow active key={index} >
-                  <CTableDataCell >{user.fullname}</CTableDataCell>
-                    <CTableDataCell>{user._id}</CTableDataCell>
-                    <CTableDataCell>{user.email}</CTableDataCell>
-                    <CTableDataCell>{user.phoneno}</CTableDataCell>
-                        <CTableDataCell className='col-1'>
-                            <div className='d-flex'>
-                            <a><i className="fa fa-trash-o ms-2 editicon"></i></a>
-                            <Link to="/viewuserlist"><i className="fa fa-eye ms-4 editicon"></i></Link>
-                            </div>  
-                        </CTableDataCell>
+  // Fetch all users
+  const fetchUsers = async () => {
+    try {
+      setLoading(true)
+      const res = await axios.get(`${ROOT_URL}/api/users/all`)
+      if (res.data.success) {
+        setUsers(res.data.data) // ✅ show all users
+      }
+      setLoading(false)
+    } catch (error) {
+      console.error('Error fetching users:', error)
+      setLoading(false)
+    }
+  }
 
-                </CTableRow>
-              })
-             }        */}
-                </CTableBody>
-            </CTable>
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
-        </>
-    )
+  // Filter users by search
+  const filteredUsers = users.filter(
+    (user) =>
+      user.userId.toLowerCase().includes(query.toLowerCase()) ||
+      user.nameAsPerDocument?.toLowerCase().includes(query.toLowerCase())
+  )
+
+  if (loading) return <p className="text-center mt-5">Loading users...</p>
+
+  return (
+    <>
+      <CCardHeader className="d-flex justify-content-between align-items-center mb-3">
+        <h5>All Users</h5>
+        <CFormInput
+          className="w-25"
+          placeholder="Search user..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </CCardHeader>
+
+      {filteredUsers.length > 0 ? (
+        <CTable responsive="sm" color="dark" className="mt-2">
+          <CTableHead>
+            <CTableRow>
+              <CTableHeaderCell>S/N</CTableHeaderCell>
+              <CTableHeaderCell>User ID</CTableHeaderCell>
+              <CTableHeaderCell>Name</CTableHeaderCell>
+              <CTableHeaderCell>Address</CTableHeaderCell>
+              <CTableHeaderCell>Phone No</CTableHeaderCell>
+              <CTableHeaderCell>Email</CTableHeaderCell>
+              <CTableHeaderCell>Status</CTableHeaderCell>
+             
+             
+            </CTableRow>
+          </CTableHead>
+          <CTableBody>
+            {filteredUsers.map((user, index) => (
+              <CTableRow key={user._id}>
+                <CTableDataCell>{index + 1}</CTableDataCell>
+                <CTableDataCell>{user.userId}</CTableDataCell>
+                <CTableDataCell>{user.name}</CTableDataCell>
+                <CTableDataCell>{user.address}</CTableDataCell>
+                <CTableDataCell>
+                  {user.phone}
+                </CTableDataCell>
+                <CTableDataCell>
+                 {user.email}
+                </CTableDataCell>
+                 <CTableHeaderCell>{user.status}</CTableHeaderCell>
+              </CTableRow>
+            ))}
+          </CTableBody>
+        </CTable>
+      ) : (
+        <p className="text-center mt-3">No users found.</p>
+      )}
+    </>
+  )
 }
 
 export default Userlist

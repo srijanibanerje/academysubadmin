@@ -1,179 +1,103 @@
-import React, { useState,useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios'
-import PropTypes from 'prop-types'
-
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 import {
   CRow,
   CCol,
-  CDropdown,
-  CDropdownMenu,
-  CDropdownItem,
-  CDropdownToggle,
   CWidgetStatsA,
-} from '@coreui/react'
-import { getStyle } from '@coreui/utils'
-import { CChartBar, CChartLine } from '@coreui/react-chartjs'
-import CIcon from '@coreui/icons-react'
-import { cilArrowBottom, cilArrowTop, cilOptions } from '@coreui/icons'
-import swal from 'sweetalert';
+  CSpinner,
+} from "@coreui/react";
+import swal from "sweetalert";
 
 const WidgetsDropdown = (props) => {
-  const navigate = useNavigate()
-  const widgetChartRef1 = useRef(null)
-  const widgetChartRef2 = useRef(null)
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-  const [userdata, setuserdata] = useState([])
-  const [coursedata, setcoursedata] = useState([])
-  const [totaldata, settotaldata] = useState(0)
-  const [data, setData] = useState({
-    labels: [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July', 
-      'August', 'September', 'October', 'November', 'December'
-    ],
-    datasets: [
-      {
-        label: 'Monthly Order Amounts',
-        backgroundColor: 'rgba(255,255,255,.2)',
-        borderColor: 'rgba(255,255,255,.55)',
-        data: Array(12).fill(0), // Initialize with zeros for each month
-        barPercentage: 0.6,
-      },
-    ],
+  const [loading, setLoading] = useState(false);
+  const [stats, setStats] = useState({
+    totalUsers: 0,
+    totalAmount: 0,
+    currentMonthAmount: 0,
+    currentMonth: "",
   });
+
+  // ✅ Fetch Dashboard Stats
+  const fetchDashboardStats = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get(`${ROOT_URL}/api/admin/dashboard-stats`);
+      if (res.data.success) {
+        setStats(res.data.data);
+      } else {
+        swal("Error", res.data.message, "error");
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard stats:", error);
+      swal("Error", "Failed to fetch dashboard stats", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchMonthlyTotals = async () => {
-      try {
-        const response = await axios.get(ROOT_URL+'/api/auth/getmonthlytotal');
-        const monthlyTotals = response.data;
-
-        const updatedData = { ...data };
-        monthlyTotals.forEach(item => {
-          const monthIndex = item._id.month - 1;
-          updatedData.datasets[0].data[monthIndex] = item.totalAmount;
-        });
-
-        setData(updatedData);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching the monthly totals:', error);
-      }
-    };
-
-    fetchMonthlyTotals();
+    fetchDashboardStats();
   }, []);
-
-  // useEffect(() =>{
-  //   const Admintoken = localStorage.getItem('admintoken');
-  //     axios.get(ROOT_URL+'/api/auth/getuser',{
-  //         headers: {
-  //           Authorization: `Bearer ${Admintoken}`,
-  //         }
-  //         })
-  //     .then(userdata => setuserdata(userdata.data.data))
-  //     .catch((err) =>{
-  //       console.log(err);
-  //       swal("Session Expired!", "Your session has expired. Please log in again to continue.", "warning");
-  //       localStorage.removeItem('Admintoken');
-  //       navigate('/');
-  //     } )    
-  // }, []);
-  useEffect(() =>{
-      axios.get(ROOT_URL+'/api/v1/get_course')
-      .then(coursedata => setcoursedata(coursedata.data.data))
-      .catch((err) =>{
-        console.log(err);
-      })    
-  }, []);
-  useEffect(() =>{
-    axios.get(ROOT_URL+'/api/auth/gettotalamount')
-    .then(totaldata => settotaldata(totaldata.data.totalAmount))
-    .catch((err) =>{
-      console.log(err);
-    })    
-}, []);
-  useEffect(() => {
-    document.documentElement.addEventListener('ColorSchemeChange', () => {
-      if (widgetChartRef1.current) {
-        setTimeout(() => {
-          widgetChartRef1.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-primary')
-          widgetChartRef1.current.update()
-        })
-      }
-
-      if (widgetChartRef2.current) {
-        setTimeout(() => {
-          widgetChartRef2.current.data.datasets[0].pointBackgroundColor = getStyle('--cui-info')
-          widgetChartRef2.current.update()
-        })
-      }
-    })
-  }, [widgetChartRef1, widgetChartRef2])
 
   return (
     <CRow className={props.className} xs={{ gutter: 4 }}>
-      <CCol sm={6} xl={4} xxl={3} >
-        <CWidgetStatsA className='widgetheight'
-          color="primary"
-          title=" Total Users"
-          value={
-            <>
-              <span className='h2'>0</span>
-            </>
-          }  
-        />
-      </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsA className='widgetheight'
-          color="info"
-          value={
-            <>
-              <span className="h2">
-                0
-              </span>
-            </>
-          }
-          title="Total Courses"
-        />
-      </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsA className='widgetheight'
-          color="warning"
-          value={
-            <>
-             
-              <span className="h2">
-              0
-              </span>
-            </>
-          }
-          title="Total amount"
-        
-        />
-      </CCol>
-      <CCol sm={6} xl={4} xxl={3}>
-        <CWidgetStatsA className='widgetheight'
-          color="danger"
-          value={
-            <>
-             
-              <span className="h2">
-              0
-              </span>
-            </>
-          }
-          title="Monthly Wise Total amount"
-        
-        />
-      </CCol>
-     
+      {loading ? (
+        <div className="text-center my-5">
+          <CSpinner color="primary" />
+          <p className="mt-2">Loading dashboard stats...</p>
+        </div>
+      ) : (
+        <>
+          <CCol sm={6} xl={4} xxl={3}>
+            <CWidgetStatsA
+              className="widgetheight"
+              color="primary"
+              title="Total Users"
+              value={<span className="h2">{stats.totalUsers}</span>}
+            />
+          </CCol>
+
+          <CCol sm={6} xl={4} xxl={3}>
+            <CWidgetStatsA
+              className="widgetheight"
+              color="info"
+              title="Total Amount"
+              value={<span className="h2">₹{stats.totalAmount}</span>}
+            />
+          </CCol>
+
+          <CCol sm={6} xl={4} xxl={3}>
+            <CWidgetStatsA
+              className="widgetheight"
+              color="warning"
+              title={`Amount (${stats.currentMonth})`}
+              value={<span className="h2">₹{stats.currentMonthAmount}</span>}
+            />
+          </CCol>
+
+          <CCol sm={6} xl={4} xxl={3}>
+            <CWidgetStatsA
+              className="widgetheight"
+              color="danger"
+              title="Monthly Growth"
+              value={
+                <span className="h2">
+                  ₹{stats.currentMonthAmount}
+                </span>
+              }
+            />
+          </CCol>
+        </>
+      )}
     </CRow>
-  )
-}
+  );
+};
 
 WidgetsDropdown.propTypes = {
   className: PropTypes.string,
   withCharts: PropTypes.bool,
-}
+};
 
-export default WidgetsDropdown
+export default WidgetsDropdown;

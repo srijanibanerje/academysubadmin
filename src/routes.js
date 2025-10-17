@@ -29,7 +29,7 @@ const Widgets = React.lazy(() => import('./views/widgets/WidgetsDropdown'))
 const Allreview = React.lazy(() => import('./components/Reviews/Allreview'))
 const Allcourses = React.lazy(() => import('./components/Courses/Allcourses'))
 const payout = React.lazy(() => import('./components/Payout/payout'))
-
+const Pendinguser = React.lazy(() => import('./components/User/Pendinguser'))
 
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -62,6 +62,8 @@ const routes = [
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
   { path: '/theme/typography', name: 'Typography', element: Typography },
+  {path: '/pendinguser', name: 'Pendinguser', element: Pendinguser},
+
  
   { path: '/widgets', name: 'Widgets', element: Widgets },
 ]

@@ -14,17 +14,17 @@ import {
   CFormInput,
 } from '@coreui/react'
 
-const Pendingkyc = () => {
+const Pendinguser = () => {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
 
-  // Fetch all KYC users
+  // Fetch all users
   const fetchUsers = async () => {
     try {
       setLoading(true)
-      const res = await axios.get(`${ROOT_URL}/api/bankdetails/all`)
+      const res = await axios.get(`${ROOT_URL}/api/users/all`)
       if (res.data.success) {
         // Filter only pending users
         const pendingUsers = res.data.data.filter((user) => user.status === 'pending')
@@ -32,7 +32,7 @@ const Pendingkyc = () => {
       }
       setLoading(false)
     } catch (error) {
-      console.error('Error fetching KYC users:', error)
+      console.error('Error fetching users:', error)
       setLoading(false)
     }
   }
@@ -44,7 +44,7 @@ const Pendingkyc = () => {
   // Handle Approve / Reject
   const handleUpdateStatus = async (userId, status) => {
     try {
-      const res = await axios.put(`${ROOT_URL}/api/bankdetails/status/${userId}`, { status })
+      const res = await axios.put(`${ROOT_URL}/api/users/status/${userId}`, { status })
       if (res.data.success) {
         swal('Success', res.data.message, 'success')
         fetchUsers() // refresh table
@@ -59,15 +59,15 @@ const Pendingkyc = () => {
   const filteredUsers = users.filter(
     (user) =>
       user.userId.toLowerCase().includes(query.toLowerCase()) ||
-      user.nameAsPerDocument?.toLowerCase().includes(query.toLowerCase())
+      user.name?.toLowerCase().includes(query.toLowerCase())
   )
 
-  if (loading) return <p className="text-center mt-5">Loading KYC users...</p>
+  if (loading) return <p className="text-center mt-5">Loading users...</p>
 
   return (
     <>
       <CCardHeader>
-        <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end align-items-center">
           <CFormInput
             className="ms-3 w-25"
             placeholder="Search user..."
@@ -75,7 +75,7 @@ const Pendingkyc = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <h5 className="text-center mb-2">Pending KYC Users</h5>
+        <h5 className="text-center mb-2 mt-2">Pending Users Verification</h5>
       </CCardHeader>
 
       {filteredUsers.length > 0 ? (
@@ -85,9 +85,8 @@ const Pendingkyc = () => {
               <CTableHeaderCell>S/N</CTableHeaderCell>
               <CTableHeaderCell>User ID</CTableHeaderCell>
               <CTableHeaderCell>Name</CTableHeaderCell>
-              <CTableHeaderCell>Bank name</CTableHeaderCell>
-              <CTableHeaderCell>Bank Account & ifscCode</CTableHeaderCell>
-               <CTableHeaderCell>Passbook photo</CTableHeaderCell>
+              <CTableHeaderCell>Address</CTableHeaderCell>
+              <CTableHeaderCell>Aadhaar Photo</CTableHeaderCell>
               <CTableHeaderCell className="text-center">Action</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -97,32 +96,38 @@ const Pendingkyc = () => {
                 <CTableDataCell>{index + 1}</CTableDataCell>
                 <CTableDataCell>{user.userId}</CTableDataCell>
                 <CTableDataCell>{user.name}</CTableDataCell>
-                 <CTableDataCell>{user.bankName}</CTableDataCell>
-                 <CTableDataCell>{user.accountNo} & {user.ifscCode}
-                 </CTableDataCell>
-                 <CTableDataCell>
-        {user.passbookPhoto ? (
-          <img
-            src={user.passbookPhoto}
-            alt="Passbook"
-            style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
-          />
-        ) : (
-          'No photo'
-        )}
-      </CTableDataCell>
-               
-                
+                <CTableDataCell>{user.address}</CTableDataCell>
+
+                <CTableDataCell>
+                  <img
+                    src={`${ROOT_URL}/api/users/${user.userId}/aadharPhoto`}
+                    alt="Aadhaar"
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                      objectFit: 'cover',
+                      borderRadius: '5px',
+                      border: '1px solid #ccc',
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null
+                      e.target.style.display = 'none'
+                    }}
+                  />
+                </CTableDataCell>
+
                 <CTableDataCell className="text-center">
                   <div className="d-flex gap-2 justify-content-center">
                     <CButton
-                      className="btn btn-success text-white"
-                      onClick={() => handleUpdateStatus(user.userId, 'verified')}
+                      color="success"
+                      className="text-white"
+                      onClick={() => handleUpdateStatus(user.userId, 'active')}
                     >
                       Approve
                     </CButton>
                     <CButton
-                      className="btn btn-danger text-white"
+                      color="danger"
+                      className="text-white"
                       onClick={() => handleUpdateStatus(user.userId, 'rejected')}
                     >
                       Reject
@@ -134,10 +139,10 @@ const Pendingkyc = () => {
           </CTableBody>
         </CTable>
       ) : (
-        <p className="text-center mt-3">No pending KYC users found.</p>
+        <p className="text-center mt-3">No pending users found.</p>
       )}
     </>
   )
 }
 
-export default Pendingkyc
+export default Pendinguser

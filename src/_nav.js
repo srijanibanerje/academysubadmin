@@ -53,6 +53,12 @@ const _nav = [
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
   {
+    component: CNavItem,
+    name: 'Pending Users',
+    to: '/Pendinguser',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
+  {
     component: CNavTitle,
     name: 'Payout',
   },

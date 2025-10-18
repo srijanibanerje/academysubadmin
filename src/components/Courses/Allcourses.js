@@ -17,27 +17,36 @@ const Allcourses = () => {
                 <div className="d-flex mt-2">
 
                   <div>🌟</div>
-                  <div className="ms-2"> BASIC CRYPTO KNOWLEDGE</div>
+                  <div className="ms-2">Basic Crypto Knowledge
+
+
+
+
+</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">BASIC BUY/SELL ON CENTRALISED EXCHANGE</div>
+                  <div className="ms-2">Basic Buy/Sell On Centralised Exchange</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">CRYPTO SIP GUIDE</div>
+                  <div className="ms-2">Crypto Sip Guide</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">PORTFOLIO MANAGEMENT GUIDE</div>
+                  <div className="ms-2">Portfolio Management Guide</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">MONTHLY SPOT CALL</div>
+                  <div className="ms-2">Monthly Spot Call</div>
                 </div>
                  <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">BASIC FUNDAMENTAL ANALYSIS, TECHNICAL ANALYSIS</div>
+                  <div className="ms-2">Basic Fundamental Analysis, Technical Analysis</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">One Month Subscription</div>
                 </div>
               </div>
             </div>
@@ -58,27 +67,35 @@ const Allcourses = () => {
               
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2"> Advance crypto knowledge</div>
+                  <div className="ms-2"> Advance Crypto Trading Knowledge</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2"> Meme coin checklist</div>
+                  <div className="ms-2">Spot, Future, Margin Trading</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2"> 3-month subscription for premium group</div>
+                  <div className="ms-2">Regular Future Trading Call</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Future trading call</div>
+                  <div className="ms-2">Risk Management Strategy</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Bonus 5 long-term holding</div>
+                  <div className="ms-2">Regular PNL Strategy</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Monthly Scholarship 5%</div>
+                  <div className="ms-2">Liquidation Strategy</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">Portfolio Management (Advance)</div>
+                </div>
+                 <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">Advance Fundamental Analysis, Technical Analysis</div>
                 </div>
                 {/* <div className="kick">🌟 Advance crypto knowledge</div> */}
                 {/* <div className="kick">🌟 Meme coin checklist</div> */}
@@ -103,24 +120,40 @@ const Allcourses = () => {
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
-                  <div className="ms-2">Master trading skill + life time asset</div>
+                  <div className="ms-2">Crypto Education A To Z</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">1-year subscription for premium group</div>
+                  <div className="ms-2">Premium Future Trading Strategy</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">10 GEM coin name</div>
+                  <div className="ms-2">Regular Premium Call</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Portfolio management</div>
+                  <div className="ms-2">Premium Portfolio Management</div>
                 </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">Five Long-Term Holding Coin Name Suggestion</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">Fund Management Strategy</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">A To Z Fundamental Analysis, Technical Analysis</div>
+              </div>
+              <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">Six Months Subscription</div>
               </div>
             </div>
             
           </div>
+        </div>
         </div>
 
         {/* Teacher package */}
@@ -133,19 +166,27 @@ const Allcourses = () => {
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
-                  <div className="ms-2">Master trading skill + life time asset</div>
+                  <div className="ms-2">Whales Wallet Tracking</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">1-year subscription for premium group</div>
+                  <div className="ms-2">Crypto Taxation</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">10 GEM coin name</div>
+                  <div className="ms-2">Crypto Rules And Knowledge</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Portfolio management</div>
+                  <div className="ms-2">Fundamental Analysis and Technical Analysis (Complete)</div>
+                </div>
+                 <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">DEX And CEX Arbitrage Model</div>
+                </div>
+                 <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">One Year Subscription</div>
                 </div>
               </div>
             </div>
@@ -162,19 +203,27 @@ const Allcourses = () => {
               <div className="flex-grow-1">
                 <div className="d-flex">
                   <div>🌟</div>
-                  <div className="ms-2">Master trading skill + life time asset</div>
+                  <div className="ms-2">Whale Wallet Tracking</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">1-year subscription for premium group</div>
+                  <div className="ms-2">Crypto Taxation</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">10 GEM coin name</div>
+                  <div className="ms-2">Crypto Rules And Knowledge</div>
                 </div>
                 <div className="d-flex mt-2">
                   <div>🌟</div>
-                  <div className="ms-2">Portfolio management</div>
+                  <div className="ms-2">Fundamental Analysis and Technical Analysis (Complete)</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">DEX And CEX Arbitrage Model</div>
+                </div>
+                <div className="d-flex mt-2">
+                  <div>🌟</div>
+                  <div className="ms-2">One Year Subscription</div>
                 </div>
               </div>
             </div>
@@ -191,25 +240,29 @@ const Allcourses = () => {
               </h3>
               <div className="fw-bold h5 text-center mt-3">RS. 944(Incl. GST)</div>
               <div className="fw-bold h5 text-center mt-2" style={{color:"gold"}}>Points: 800</div>
-              {/* <div className="flex-grow-1">
+              <div className="flex-grow-1">
               <div className="d-flex">
                 <div>🌟</div>
-                <div className="ms-2">Master trading skill + life time asset</div>
+                <div className="ms-2">Monthly Trading Guidance</div>
               </div>
               <div className="d-flex mt-2">
                 <div>🌟</div>
-                <div className="ms-2">1-year subscription for premium group</div>
+                <div className="ms-2">Monthly Special Classes</div>
               </div>
               <div className="d-flex mt-2">
                 <div>🌟</div>
-                <div className="ms-2">10 GEM coin name</div>
+                <div className="ms-2">Expert Advice</div>
               </div>
                <div className="d-flex mt-2">
                 <div>🌟</div>
-                <div className="ms-2">Portfolio management</div>
+                <div className="ms-2">Two Coin Suggestion</div>
+              </div>
+              <div className="d-flex mt-2">
+                <div>🌟</div>
+                <div className="ms-2">One Special Call</div>
               </div>
           
-              </div> */}
+              </div>
             </div>
             
           </div>

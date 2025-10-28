@@ -11,7 +11,7 @@ import {
   CTableDataCell,
   CFormInput,
 } from '@coreui/react'
-
+import {Link } from 'react-router-dom';
 const Userlist = () => {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   const [users, setUsers] = useState([])
@@ -24,6 +24,7 @@ const Userlist = () => {
       setLoading(true)
       const res = await axios.get(`${ROOT_URL}/api/users/all`)
       if (res.data.success) {
+        console.log(res.data.data)
         setUsers(res.data.data) // ✅ show all users
       }
       setLoading(false)
@@ -69,6 +70,7 @@ const Userlist = () => {
               <CTableHeaderCell>Phone No</CTableHeaderCell>
               <CTableHeaderCell>Email</CTableHeaderCell>
               <CTableHeaderCell>Status</CTableHeaderCell>
+              <CTableHeaderCell className='text-center'>Action</CTableHeaderCell>
              
              
             </CTableRow>
@@ -87,6 +89,7 @@ const Userlist = () => {
                  {user.email}
                 </CTableDataCell>
                  <CTableHeaderCell>{user.status}</CTableHeaderCell>
+                 <CTableHeaderCell className='text-center'><Link to={`/user/edituser/${user.userId}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1"></i></Link></CTableHeaderCell>
               </CTableRow>
             ))}
           </CTableBody>

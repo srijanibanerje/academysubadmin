@@ -28,6 +28,7 @@ const Pendinguser = () => {
       if (res.data.success) {
         // Filter only pending users
         const pendingUsers = res.data.data.filter((user) => user.status === 'pending')
+        console.log('Pending Users:', pendingUsers)
         setUsers(pendingUsers)
       }
       setLoading(false)
@@ -86,7 +87,9 @@ const Pendinguser = () => {
               <CTableHeaderCell>User ID</CTableHeaderCell>
               <CTableHeaderCell>Name</CTableHeaderCell>
               <CTableHeaderCell>Address</CTableHeaderCell>
-              <CTableHeaderCell>Aadhaar Photo</CTableHeaderCell>
+              <CTableHeaderCell>Aadhaar Photo(front)</CTableHeaderCell>
+                <CTableHeaderCell>Aadhaar Photo(back)</CTableHeaderCell>
+                  <CTableHeaderCell>Pan Photo</CTableHeaderCell>
               <CTableHeaderCell className="text-center">Action</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -100,12 +103,12 @@ const Pendinguser = () => {
 
                 <CTableDataCell>
                   <img
-                    src={`${ROOT_URL}/api/users/${user.userId}/aadharPhoto`}
+                    src={user.aadharPhotoFront}
                     alt="Aadhaar"
                     style={{
-                      width: '100px',
-                      height: '100px',
-                      objectFit: 'cover',
+                      width: '200px',
+                      height: '200px',
+                     objectFit: "contain",
                       borderRadius: '5px',
                       border: '1px solid #ccc',
                     }}
@@ -114,6 +117,42 @@ const Pendinguser = () => {
                       e.target.style.display = 'none'
                     }}
                   />
+                </CTableDataCell>
+                 <CTableDataCell>
+                  <img
+                    src={user.aadharPhotoBack}
+                    alt="Aadhaar"
+                    style={{
+                      width: '200px',
+                      height: '200px',
+                     objectFit: "contain",
+                      borderRadius: '5px',
+                      border: '1px solid #ccc',
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null
+                      e.target.style.display = 'none'
+                    }}
+                  />
+                </CTableDataCell>
+                 <CTableDataCell>
+                 
+                  <img
+                    src={user.panPhoto}
+                    alt="Aadhaar"
+                    style={{
+                      width: '200px',
+                      height: '200px',
+                      objectFit: "contain",
+                      borderRadius: '5px',
+                      border: '1px solid #ccc',
+                    }}
+                    onError={(e) => {
+                      e.target.onerror = null
+                      e.target.style.display = 'none'
+                    }}
+                  />
+                  
                 </CTableDataCell>
 
                 <CTableDataCell className="text-center">

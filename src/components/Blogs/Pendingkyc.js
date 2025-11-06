@@ -28,6 +28,7 @@ const Pendingkyc = () => {
       if (res.data.success) {
         // Filter only pending users
         const pendingUsers = res.data.data.filter((user) => user.status === 'pending')
+        console.log(pendingUsers)
         setUsers(pendingUsers)
       }
       setLoading(false)
@@ -108,7 +109,7 @@ const Pendingkyc = () => {
             style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
           />
         ) : (
-          'No photo'
+          'Np Photo'
         )}
       </CTableDataCell>
                

@@ -26,8 +26,11 @@ function Payout() {
       const res = await axios.get(`${ROOT_URL}/api/payout/all-payouts`);
       if (res.data.success) {
         // Flatten nested payouts for table display
-        const formatted = res.data.data.flatMap((user) =>
-          user.payouts.map((payout) => ({
+        
+         const formatted = res.data.data.flatMap((user) =>
+        user.payouts
+          .filter((payout) => payout.amount > 0) // ✅ exclude zero-amount payouts
+          .map((payout) => ({
             name: user.name,
             userId: user.userId,
             payoutId: payout._id,

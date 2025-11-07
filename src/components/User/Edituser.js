@@ -154,7 +154,7 @@ const Edituser = () => {
             <CCol md="6">
               <CFormLabel>Password</CFormLabel>
               <CFormInput
-                type="password"
+                type="text"
                 name="password"
                 value={user.password}
                 onChange={handleChange}

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import {
   CTable,
   CTableHead,
@@ -9,91 +9,91 @@ import {
   CTableDataCell,
   CButton,
   CSpinner,
-} from "@coreui/react";
-import swal from "sweetalert";
+} from '@coreui/react'
+import swal from 'sweetalert'
 
 function Payout() {
-  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-  const [payouts, setPayouts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [generating, setGenerating] = useState(false);
-  const [updating, setUpdating] = useState(null); // track which payout is being updated
+  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
+  const [payouts, setPayouts] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [generating, setGenerating] = useState(false)
+  const [updating, setUpdating] = useState(null) // track which payout is being updated
 
   // Fetch all user payouts
   const fetchPayouts = async () => {
     try {
-      setLoading(true);
-      const res = await axios.get(`${ROOT_URL}/api/payout/all-payouts`);
+      setLoading(true)
+      const res = await axios.get(`${ROOT_URL}/api/payout/all-payouts`)
       if (res.data.success) {
         // Flatten nested payouts for table display
-        
-         const formatted = res.data.data.flatMap((user) =>
-        user.payouts
-          .filter((payout) => payout.amount > 0) // ✅ exclude zero-amount payouts
-          .map((payout) => ({
-            name: user.name,
-            userId: user.userId,
-            payoutId: payout._id,
-            amount: payout.amount,
-            date: payout.date,
-            status: payout.status,
-          }))
-        );
-        setPayouts(formatted);
+
+        const formatted = res.data.data.flatMap((user) =>
+          user.payouts
+            .filter((payout) => payout.amount > 0) // ✅ exclude zero-amount payouts
+            .map((payout) => ({
+              name: user.name,
+              userId: user.userId,
+              payoutId: payout._id,
+              amount: payout.amount,
+              date: payout.date,
+
+              status: payout.status,
+            })),
+        )
+        setPayouts(formatted)
       }
     } catch (error) {
-      console.error(error);
-      swal("Error", "Failed to fetch payouts", "error");
+      console.error(error)
+      swal('Error', 'Failed to fetch payouts', 'error')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchPayouts();
-  }, []);
+    fetchPayouts()
+  }, [])
 
   // Generate payouts
   const handleGeneratePayout = async () => {
     try {
-      setGenerating(true);
-      const res = await axios.post(`${ROOT_URL}/api/payout/run`);
+      setGenerating(true)
+      const res = await axios.post(`${ROOT_URL}/api/payout/run`)
       if (res.data.success) {
-        swal("Success", res.data.message, "success");
-        fetchPayouts();
+        swal('Success', res.data.message, 'success')
+        fetchPayouts()
       } else {
-        swal("Error", res.data.message, "error");
+        swal('Error', res.data.message, 'error')
       }
     } catch (error) {
-      console.error(error);
-      swal("Error", "Failed to generate payout", "error");
+      console.error(error)
+      swal('Error', 'Failed to generate payout', 'error')
     } finally {
-      setGenerating(false);
+      setGenerating(false)
     }
-  };
+  }
 
   // ✅ Update payout status API call
   const handleStatusUpdate = async (userId, payoutId, newStatus) => {
     try {
-      setUpdating(payoutId);
-      const res = await axios.put(
-        `${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`,
-        { status: newStatus }
-      );
+      setUpdating(payoutId)
+      const res = await axios.put(`${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`, {
+        status: newStatus,
+      })
 
       if (res.data.success) {
-        swal("Success", res.data.message, "success");
-        fetchPayouts(); // refresh after update
+        swal('Success', res.data.message, 'success')
+        fetchPayouts() // refresh after update
       } else {
-        swal("Error", res.data.message, "error");
+        swal('Error', res.data.message, 'error')
       }
     } catch (error) {
-      console.error(error);
-      swal("Error", "Failed to update payout status", "error");
+      console.error(error)
+      swal('Error', 'Failed to update payout status', 'error')
     } finally {
-      setUpdating(null);
+      setUpdating(null)
     }
-  };
+  }
 
   return (
     <>
@@ -110,7 +110,7 @@ function Payout() {
               <CSpinner size="sm" className="me-2" /> Generating...
             </>
           ) : (
-            "Generate Payout"
+            'Generate Payout'
           )}
         </CButton>
       </div>
@@ -127,8 +127,10 @@ function Payout() {
               <CTableHeaderCell>#</CTableHeaderCell>
               <CTableHeaderCell>User Name</CTableHeaderCell>
               <CTableHeaderCell>User ID</CTableHeaderCell>
-              <CTableHeaderCell>Amount (₹)</CTableHeaderCell>
+              <CTableHeaderCell>Payout Amount(₹)</CTableHeaderCell>
               <CTableHeaderCell>Date</CTableHeaderCell>
+              <CTableHeaderCell>Amount-TDS(5%)</CTableHeaderCell>
+
               <CTableHeaderCell>Status</CTableHeaderCell>
               <CTableHeaderCell>Action</CTableHeaderCell>
             </CTableRow>
@@ -142,24 +144,24 @@ function Payout() {
                   <CTableDataCell>{p.name}</CTableDataCell>
                   <CTableDataCell>{p.userId}</CTableDataCell>
                   <CTableDataCell>₹{p.amount}</CTableDataCell>
-                  <CTableDataCell>
-                    {new Date(p.date).toLocaleDateString()}
-                  </CTableDataCell>
+                  <CTableDataCell>{new Date(p.date).toLocaleDateString()}</CTableDataCell>
+                  <CTableDataCell>₹{(p.amount - p.amount * 0.05).toFixed(2)}</CTableDataCell>
+
                   <CTableDataCell>
                     <span
                       className={`badge px-3 py-2 ${
-                        p.status === "completed"
-                          ? "bg-success"
-                          : p.status === "pending"
-                          ? "bg-warning text-dark"
-                          : "bg-secondary"
+                        p.status === 'completed'
+                          ? 'bg-success'
+                          : p.status === 'pending'
+                            ? 'bg-warning text-dark'
+                            : 'bg-secondary'
                       }`}
                     >
                       {p.status}
                     </span>
                   </CTableDataCell>
                   <CTableDataCell>
-                    {p.status === "completed" ? (
+                    {p.status === 'completed' ? (
                       <CButton color="secondary" size="sm" disabled>
                         Completed
                       </CButton>
@@ -168,16 +170,14 @@ function Payout() {
                         color="primary"
                         size="sm"
                         disabled={updating === p.payoutId}
-                        onClick={() =>
-                          handleStatusUpdate(p.userId, p.payoutId, "completed")
-                        }
+                        onClick={() => handleStatusUpdate(p.userId, p.payoutId, 'completed')}
                       >
                         {updating === p.payoutId ? (
                           <>
                             <CSpinner size="sm" /> Updating...
                           </>
                         ) : (
-                          " Completed"
+                          ' Completed'
                         )}
                       </CButton>
                     )}
@@ -195,7 +195,7 @@ function Payout() {
         </CTable>
       )}
     </>
-  );
+  )
 }
 
-export default Payout;
+export default Payout

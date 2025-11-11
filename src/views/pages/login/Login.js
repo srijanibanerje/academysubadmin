@@ -25,7 +25,7 @@ const Login = () => {
   
   const navigate = useNavigate();
     const fixedEmail = "admin@gmail.com"
-  const fixedPassword = "123456"
+  const fixedPassword = "Synthosphere#2025"
 
   const [username, setusername] = useState('')
   const [password, setpassword] = useState('')

@@ -71,6 +71,7 @@ const Userlist = () => {
               <CTableHeaderCell>Email</CTableHeaderCell>
               <CTableHeaderCell>Course name</CTableHeaderCell>
               <CTableHeaderCell>Package name</CTableHeaderCell>
+               
               <CTableHeaderCell>Status</CTableHeaderCell>
               <CTableHeaderCell className='text-center'>Action</CTableHeaderCell>
              
@@ -100,6 +101,8 @@ const Userlist = () => {
                     <span className="text-muted">No Enrolled Package</span>
                   )}
                 </CTableDataCell>
+               
+
                  <CTableHeaderCell>{user.status}</CTableHeaderCell>
                 
                  <CTableHeaderCell className='text-center'><Link to={`/user/edituser/${user.userId}`} className='mt-1'><i className="fa fa-edit ms-2 mt-1"></i></Link></CTableHeaderCell>

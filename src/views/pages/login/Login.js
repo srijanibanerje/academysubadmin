@@ -22,15 +22,26 @@ import swal from 'sweetalert';
 
 const Login = () => {
   
-  const [username , setusername] = useState('');
-  const [password , setpassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
   
-const handleSubmit = (event) => {
-    event.preventDefault();
-  navigate('/dashboard');
+  const navigate = useNavigate();
+    const fixedEmail = "admin@gmail.com"
+  const fixedPassword = "123456"
+
+  const [username, setusername] = useState('')
+  const [password, setpassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    if (username === fixedEmail && password === fixedPassword) {
+      swal("Welcome!", "You have successfully logged into the admin panel.", "success")
+      navigate('/dashboard')
+    } else {
+      swal("Oops!", "Invalid email or password!", "error")
+    }
   }
+
   // const handleSubmit = (event) => {
   //   event.preventDefault();
   //   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;

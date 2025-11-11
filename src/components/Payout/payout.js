@@ -129,7 +129,7 @@ function Payout() {
               <CTableHeaderCell>User ID</CTableHeaderCell>
               <CTableHeaderCell>Payout Amount(₹)</CTableHeaderCell>
               <CTableHeaderCell>Date</CTableHeaderCell>
-              <CTableHeaderCell>Amount-TDS(5%)</CTableHeaderCell>
+              <CTableHeaderCell>Total Amount(Amount-TDS(5%))</CTableHeaderCell>
 
               <CTableHeaderCell>Status</CTableHeaderCell>
               <CTableHeaderCell>Action</CTableHeaderCell>

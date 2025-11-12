@@ -103,11 +103,12 @@ const Pendingkyc = () => {
                  </CTableDataCell>
                  <CTableDataCell>
         {user.passbookPhoto ? (
-          <img
+          <a href={user.passbookPhoto} target='_blank'>
+          <img 
             src={user.passbookPhoto}
             alt="Passbook"
             style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
-          />
+          /></a>
         ) : (
           'Np Photo'
         )}

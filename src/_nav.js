@@ -91,13 +91,16 @@ const _nav = [
     to: '/rejectedkyc',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  
-  // {
-  //   component: CNavItem,
-  //   name: 'Offlineuser',
-  //   to: '/Offlineuser',
-  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  // },
+  {
+    component: CNavTitle,
+    name: 'Rank',
+  },
+  {
+    component: CNavItem,
+    name: 'AllRankusers',
+    to: '/rankusers',
+    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  },
 
   
   // {

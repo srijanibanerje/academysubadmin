@@ -31,6 +31,7 @@ const Allcourses = React.lazy(() => import('./components/Courses/Allcourses'))
 const payout = React.lazy(() => import('./components/Payout/payout'))
 const Pendinguser = React.lazy(() => import('./components/User/Pendinguser'))
 const Edituser = React.lazy(() => import('./components/User/Edituser'))
+const Rankusers = React.lazy(()=> import("./components/Rankusers"))
 const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
@@ -39,7 +40,7 @@ const routes = [
   { path: '/addchapter', name: 'Addchapter', element: Addchapter },
   { path: '/addteacher', name: 'Addteacher', element: Addteacher },
   { path: '/teacher/alluser', name: 'Alluser', element: Alluserlist },
-
+  {path:'/rankusers', name:"AllRankusers" , element:Rankusers},
   { path: '/allreview', name: 'Allreview', element: Allreview},
    {path: '/allcourses', name:'Allcourses' , element: Allcourses},
   { path: '/viewreview/:id', name: 'Viewreview', element: Viewreview},

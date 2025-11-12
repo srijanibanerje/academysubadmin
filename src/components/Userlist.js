@@ -39,11 +39,14 @@ const Userlist = () => {
   }, [])
 
   // Filter users by search
-  const filteredUsers = users.filter(
-    (user) =>
-      user.userId.toLowerCase().includes(query.toLowerCase()) ||
-      user.nameAsPerDocument?.toLowerCase().includes(query.toLowerCase())
-  )
+ const filteredUsers = users.filter((user) => {
+  const queryLower = query.toLowerCase();
+  return (
+    user.userId?.toLowerCase().includes(queryLower) ||
+    user.name?.toLowerCase().includes(queryLower) ||
+    user.courseDetails?.packageName?.toLowerCase().includes(queryLower)
+  );
+});
 
   if (loading) return <p className="text-center mt-5">Loading users...</p>
 

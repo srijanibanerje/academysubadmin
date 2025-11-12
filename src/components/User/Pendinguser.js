@@ -14,6 +14,8 @@ import {
   CFormInput,
 } from '@coreui/react'
 
+import "./pendinguser.css"
+
 const Pendinguser = () => {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
   const [users, setUsers] = useState([])
@@ -102,7 +104,8 @@ const Pendinguser = () => {
                 <CTableDataCell>{user.address}</CTableDataCell>
 
                 <CTableDataCell>
-                  <img
+                   <a href={user.aadharPhotoFront} target='_blank'>
+                    <img 
                     src={user.aadharPhotoFront}
                     alt="Aadhaar"
                     style={{
@@ -116,10 +119,10 @@ const Pendinguser = () => {
                       e.target.onerror = null
                       e.target.style.display = 'none'
                     }}
-                  />
+                  /></a>
                 </CTableDataCell>
                  <CTableDataCell>
-                  <img
+                  <a href={user.aadharPhotoBack} target='_blank'><img
                     src={user.aadharPhotoBack}
                     alt="Aadhaar"
                     style={{
@@ -133,11 +136,11 @@ const Pendinguser = () => {
                       e.target.onerror = null
                       e.target.style.display = 'none'
                     }}
-                  />
+                  /></a>
                 </CTableDataCell>
                  <CTableDataCell>
                  
-                  <img
+                  <a href={user.panPhoto} target='_blank'> <img 
                     src={user.panPhoto}
                     alt="Aadhaar"
                     style={{
@@ -151,7 +154,7 @@ const Pendinguser = () => {
                       e.target.onerror = null
                       e.target.style.display = 'none'
                     }}
-                  />
+                  /></a>
                   
                 </CTableDataCell>
 

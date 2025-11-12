@@ -12,3 +12,14 @@
 
 // If you want to add custom CSS you can put it here
 @import "custom";
+
+.imghover {
+  transition: transform 0.3s ease;
+  cursor: zoom-in;
+}
+
+.imghover:hover {
+  transform: scale(2);
+  position: relative;
+  z-index: 999;
+}

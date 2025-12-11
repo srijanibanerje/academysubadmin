@@ -38,17 +38,16 @@ const getUserRank = (totalTeam, directTeam, points) => {
 
 const Rankusers = () => {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
-  const [filter, setFilter] = useState("pending"); 
-
   const [status, setStatus] = useState("");
   const [processing, setProcessing] = useState(false);
   const [allRanks, setAllRanks] = useState([]);
 
-  // 🚀 Fetch all saved ranks
+  // 🔥 Fetch all saved ranks
   const fetchAllRanks = async () => {
     try {
       const res = await axios.get(`${ROOT_URL}/api/rank/all`);
       if (res.data.success) {
+        console.log("Fetched all ranks:", res.data.data);
         setAllRanks(res.data.data);
       }
     } catch (error) {
@@ -56,27 +55,7 @@ const Rankusers = () => {
     }
   };
 
-  // 🚀 Approve Rank API
-  const handlePaid = async (userId, rankName) => {
-    try {
-      const res = await axios.put(`${ROOT_URL}/api/rank/approve-rank`, {
-        userId,
-        rankName,
-      });
-
-      if (res.data.success) {
-        swal("Success!", `Approved: ${rankName}`, "success");
-        fetchAllRanks(); // refresh table
-      } else {
-        swal("Error!", res.data.message, "error");
-      }
-    } catch (error) {
-      swal("Error!", "API Error", "error");
-      console.error(error);
-    }
-  };
-
-  // 🚀 Process ranks on page load
+  // 🔥 Process all users → save rank → then fetch saved ranks
   const processRanksForAllUsers = async () => {
     setProcessing(true);
     setStatus("Fetching all users...");
@@ -97,20 +76,32 @@ const Rankusers = () => {
           user.totalPoints
         );
 
-        if (achievedRank === "No Rank") continue;
+        // Skip if "No Rank"
+        if (achievedRank === "No Rank") {
+          setStatus(`Skipped: ${user.userId} (No Rank)`);
+          continue;
+        }
 
-        await axios.post(`${ROOT_URL}/api/rank/save-rank`, {
+        const body = {
           userId: user.userId,
           name: user.name,
           rankName: achievedRank,
           totalTeam: user.totalDownlineCount,
           directTeam: user.directReferrals,
           points: user.totalPoints,
-        });
+        };
+
+        await axios.post(`${ROOT_URL}/api/rank/save-rank`, body);
+        setStatus(`Saved rank for: ${user.userId} (${i + 1}/${users.length})`);
       }
 
-      setStatus("Completed");
+      // swal("Success!", "All user ranks processed successfully!", "success");
+
+      // 👇 Fetch all ranks AFTER saving
       await fetchAllRanks();
+
+      setStatus("Completed");
+
     } catch (err) {
       console.error(err);
       swal("Error!", "Failed to process ranks", "error");
@@ -126,20 +117,14 @@ const Rankusers = () => {
 
   return (
     <div className="p-4">
-    <div className="mb-3" style={{ maxWidth: "250px" }}>
-  <select
-    className="form-select"
-    value={filter}
-    onChange={(e) => setFilter(e.target.value)}
-  >
-    <option value="pending" >Pending</option>
-    <option value="approved">Approved</option>
-   
-  </select>
-</div>
+      {/* <h3>Processing User Ranks…</h3> */}
+      {/* <p>{status}</p>
+
+      {processing && <p>Please wait…</p>} */}
+
+      {/* <hr /> */}
 
       <h4 className="mt-4">All Ranks</h4>
-      
 
       <table className="table table-bordered table-hover mt-3">
         <thead className="table-light text-center">
@@ -147,111 +132,50 @@ const Rankusers = () => {
             <th>S/N</th>
             <th>User ID</th>
             <th>Name</th>
+          
             <th>Total Team</th>
             <th>Direct Team</th>
             <th>Points</th>
-            <th> Rank</th>
-            <th >{filter === "pending" ? "Action" : "Status"} </th>
+              <th>Rank</th>
+              <th>Action</th>
+          
           </tr>
         </thead>
 
-        <tbody className="text-center">
-  {/* {allRanks.length > 0 ? (
-    allRanks
-      .filter(rank => rank.rewards.some(r => r.status === "pending")) // ONLY pending rows
-      .map((rank, index) => {
-        const pendingRewards = rank.rewards.filter(r => r.status === "pending");
-        const pendingRankNames = pendingRewards.map(r => r.rankName); */}
-        
+       <tbody className="text-center">
   {allRanks.length > 0 ? (
-    allRanks
-      .filter((rank) => {
-        if (filter === "pending")
-          return rank.rewards.some((r) => r.status === "pending");
-        if (filter === "approved")
-          return rank.rewards.some((r) => r.status === "approved");
-       
-      })
-      .map((rank, index) => {
-        const visibleRewards =
-          filter === "pending"
-            ? rank.rewards.filter((r) => r.status === "pending")
-            : filter === "approved"
-            ? rank.rewards.filter((r) => r.status === "approved")
-            : rank.rewards;
+    allRanks.map((rank, index) => {
+      
+      // Get pending rewards only
+      const pendingRewards = rank.rewards.filter(r => r.status === "pending");
 
-        const rewardNames = visibleRewards.map((r) => r.rankName);
-                  return (
-          <tr key={rank._id}>
-            <td>{index + 1}</td>
-            <td>{rank.userId}</td>
-            <td>{rank.name}</td>
-            <td>{rank.totalTeam}</td>
-            <td>{rank.directTeam}</td>
-            <td>{rank.points}</td>
+      // Extract rank names
+      const pendingRankNames = pendingRewards.map(r => r.rankName).join(", ");
 
-            <td className="fw-bold">
-              {rewardNames.length ? rewardNames.join(", ") : "None"}
-            </td>
+      return (
+        <tr key={rank._id}>
+          <td>{index + 1}</td>
+          <td>{rank.userId}</td>
+          <td>{rank.name}</td>
 
-            <td>
-              {filter === "pending" ? (
-                <button
-                  className="btn btn-success"
-                  disabled={rewardNames.length === 0}
-                  onClick={() =>
-                    handlePaid(rank.userId, rewardNames[0])
-                  }
-                >
-                  Paid
-                </button>
-              ) : (
-                <span className=" fw-bold">Approved</span>
-              )}
-            </td>
-          </tr>
-        );
-      })
+          <td>{rank.totalTeam}</td>
+          <td>{rank.directTeam}</td>
+          <td>{rank.points}</td>
+
+          {/* SHOW ONLY PENDING RANKS */}
+          <td className="fw-bold">
+            {pendingRankNames || "No Rank"}
+          </td>
+          <td><button className="btn btn-success">Paid</button></td>
+        </tr>
+      );
+    })
   ) : (
     <tr>
-      <td colSpan="8">No records found.</td>
+      <td colSpan="8">No rank records found.</td>
     </tr>
   )}
 </tbody>
-
-
-        {/* return (
-          <tr key={rank._id}>
-            <td>{index + 1}</td>
-            <td>{rank.userId}</td>
-            <td>{rank.name}</td>
-
-            <td>{rank.totalTeam}</td>
-            <td>{rank.directTeam}</td>
-            <td>{rank.points}</td>
-
-            <td className="fw-bold">
-              {pendingRankNames.join(", ")}
-            </td>
-
-            <td>
-              <button
-                className="btn btn-success"
-                disabled={pendingRankNames.length === 0}
-                onClick={() => handlePaid(rank.userId, pendingRankNames[0])}
-              >
-                Paid
-              </button>
-            </td>
-          </tr>
-        );
-      })
-  ) : (
-    <tr>
-      <td colSpan="8">No pending rank records found.</td>
-    </tr>
-  )}
-</tbody> */}
 
       </table>
     </div>

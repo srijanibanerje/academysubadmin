@@ -125,22 +125,27 @@ const Rankusers = () => {
   }, []);
 
   return (
-    <div className="p-4">
-    <div className="mb-3" style={{ maxWidth: "250px" }}>
+    <div className="p-2">
+    <div className=" d-flex mb-3" style={{ maxWidth: "250px" }}>
+    <div className="mt-2">Select Status: </div>
+    <div>
   <select
     className="form-select"
     value={filter}
     onChange={(e) => setFilter(e.target.value)}
+    
   >
+   
     <option value="pending" >Pending</option>
     <option value="approved">Approved</option>
    
   </select>
+  </div>
 </div>
 
       <h4 className="mt-4">All Ranks</h4>
       
-
+      <div className="table-responsive">
       <table className="table table-bordered table-hover mt-3">
         <thead className="table-light text-center">
           <tr>
@@ -254,6 +259,7 @@ const Rankusers = () => {
 </tbody> */}
 
       </table>
+      </div>
     </div>
   );
 };

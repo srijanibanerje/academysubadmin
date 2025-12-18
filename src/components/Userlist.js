@@ -39,14 +39,31 @@ const Userlist = () => {
   }, [])
 
   // Filter users by search
- const filteredUsers = users.filter((user) => {
-  const queryLower = query.toLowerCase();
-  return (
-    user.userId?.toLowerCase().includes(queryLower) ||
-    user.name?.toLowerCase().includes(queryLower) ||
-    user.courseDetails?.packageName?.toLowerCase().includes(queryLower)
-  );
-});
+ const filteredUsers = users
+  // latest first
+  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  .filter((user) => {
+    const queryLower = query.toLowerCase()
+
+    const hasCourse = !!user.courseDetails
+    const courseName = user.courseDetails?.courseName?.toLowerCase() || ''
+    const packageName = user.courseDetails?.packageName?.toLowerCase() || ''
+
+    // 👇 virtual searchable labels
+    const noCourseText = !hasCourse ? 'no enrolled course' : ''
+    const noPackageText = !hasCourse ? 'no enrolled package' : ''
+
+    return (
+      user.userId?.toLowerCase().includes(queryLower) ||
+      user.name?.toLowerCase().includes(queryLower) ||
+      courseName.includes(queryLower) ||
+      packageName.includes(queryLower) ||
+      noCourseText.includes(queryLower) ||
+      noPackageText.includes(queryLower)
+    )
+  })
+
+
 
   if (loading) return <p className="text-center mt-5">Loading users...</p>
 

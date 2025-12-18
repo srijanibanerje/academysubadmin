@@ -113,15 +113,17 @@ const Userlist = () => {
                  {user.email}
                 </CTableDataCell>
                 <CTableDataCell>
-                  {user.courseDetails?.courseName || (
+                  {user.courseDetails?.courseName   || (
                     <span className="text-muted">No Enrolled Course</span>
                   )}
+                 
                 </CTableDataCell>
                 <CTableDataCell>{user.courseDetails?.purchaseHistory[0].date}</CTableDataCell>
                 <CTableDataCell>
                   {user.courseDetails?.packageName || (
                     <span className="text-muted">No Enrolled Package</span>
                   )}
+                  <br/> {user.courseDetails?.purchaseHistory[0].amount || '0000'}
                 </CTableDataCell>
                
 

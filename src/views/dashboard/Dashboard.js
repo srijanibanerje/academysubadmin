@@ -19,12 +19,12 @@ import {
 } from '@coreui/react'
 
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
-// import MainChart from './MainChart'
+import MainChart from './MainChart'
+import Charts from "../charts/Charts"
 
 const Dashboard = () => {
-  const navigate = useNavigate();
-  const [productdata, setproductdata] = useState([])
-  const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+
+ 
   
   // console.log(ROOT_URL)
 
@@ -78,7 +78,7 @@ const Dashboard = () => {
   return (
     <>
       <WidgetsDropdown className="mb-4" />
-      
+      <Charts/>
         <CCardHeader>
           <h5 className='text-center mb-2'>All Packages</h5>
         </CCardHeader>
@@ -91,6 +91,7 @@ const Dashboard = () => {
                  <CTableHeaderCell scope="col">GST</CTableHeaderCell>
                  <CTableHeaderCell scope="col">Actual Price</CTableHeaderCell>
                 <CTableHeaderCell scope="col">Course price</CTableHeaderCell>
+                
              </CTableRow>
             </CTableHead>
             <CTableBody>

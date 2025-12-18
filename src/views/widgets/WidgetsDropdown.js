@@ -25,6 +25,7 @@ const WidgetsDropdown = (props) => {
       setLoading(true);
       const res = await axios.get(`${ROOT_URL}/api/admin/dashboard-stats`);
       if (res.data.success) {
+        console.log("Dashboard Stats:", res.data.data);
         setStats(res.data.data);
       } else {
         swal("Error", res.data.message, "error");

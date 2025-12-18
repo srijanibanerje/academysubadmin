@@ -90,6 +90,7 @@ const Userlist = () => {
               <CTableHeaderCell>Phone No</CTableHeaderCell>
               <CTableHeaderCell>Email</CTableHeaderCell>
               <CTableHeaderCell>Course name</CTableHeaderCell>
+              <CTableHeaderCell>Purchase date</CTableHeaderCell>
               <CTableHeaderCell>Package name</CTableHeaderCell>
                
               <CTableHeaderCell>Status</CTableHeaderCell>
@@ -116,6 +117,7 @@ const Userlist = () => {
                     <span className="text-muted">No Enrolled Course</span>
                   )}
                 </CTableDataCell>
+                <CTableDataCell>{user.courseDetails?.purchaseHistory[0].date}</CTableDataCell>
                 <CTableDataCell>
                   {user.courseDetails?.packageName || (
                     <span className="text-muted">No Enrolled Package</span>

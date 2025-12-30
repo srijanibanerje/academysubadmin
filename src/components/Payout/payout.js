@@ -25,6 +25,7 @@ function Payout() {
       setLoading(true)
       const res = await axios.get(`${ROOT_URL}/api/payout/all-payouts`)
       if (res.data.success) {
+        console.log(res.data.data)
         // Flatten nested payouts for table display
 
         const formatted = res.data.data.flatMap((user) =>
@@ -89,7 +90,7 @@ function Payout() {
       }
     } catch (error) {
       console.error(error)
-      swal('Error', 'Failed to update payout status', 'error')
+      swal('Error', error.response.data.message , 'error')
     } finally {
       setUpdating(null)
     }
@@ -143,7 +144,7 @@ function Payout() {
                   <CTableDataCell>{p.name}</CTableDataCell>
                   <CTableDataCell>{p.userId}</CTableDataCell>
                   <CTableDataCell>₹{p.amount}</CTableDataCell>
-                  <CTableDataCell>{new Date(p.date).toLocaleDateString()}</CTableDataCell>
+                  <CTableDataCell>{p.date}</CTableDataCell>
                   <CTableDataCell>₹{(p.amount - p.amount * 0.05).toFixed(2)}</CTableDataCell>
 
                   <CTableDataCell>

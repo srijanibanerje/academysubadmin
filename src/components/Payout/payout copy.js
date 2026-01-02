@@ -14,36 +14,33 @@ import swal from 'sweetalert'
 
 function Payout() {
   const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL
-
   const [payouts, setPayouts] = useState([])
   const [loading, setLoading] = useState(false)
   const [generating, setGenerating] = useState(false)
-  const [updating, setUpdating] = useState(null)
+  const [updating, setUpdating] = useState(null) // track which payout is being updated
 
-  // 🔹 Filters
-  const [amountFilter, setAmountFilter] = useState('200') // all | 200 (default 200)
-  const [selectedDate, setSelectedDate] = useState('')
-
-  // ================= FETCH PAYOUTS =================
+  // Fetch all user payouts
   const fetchPayouts = async () => {
     try {
       setLoading(true)
       const res = await axios.get(`${ROOT_URL}/api/payout/all-payouts`)
-
       if (res.data.success) {
+        console.log(res.data.data)
+        // Flatten nested payouts for table display
+
         const formatted = res.data.data.flatMap((user) =>
           user.payouts
-            .filter((p) => p.amount > 0)
-            .map((p) => ({
+            .filter((payout) => payout.amount > 0) // ✅ exclude zero-amount payouts
+            .map((payout) => ({
               name: user.name,
               userId: user.userId,
-              payoutId: p._id,
-              amount: p.amount,
-              date: p.date, // assumed YYYY-MM-DD or ISO
-              status: p.status,
+              payoutId: payout._id,
+              amount: payout.amount,
+              date: payout.date,
+
+              status: payout.status,
             })),
         )
-
         setPayouts(formatted)
       }
     } catch (error) {
@@ -58,34 +55,11 @@ function Payout() {
     fetchPayouts()
   }, [])
 
-  // ================= UNIQUE PAYOUT DATES =================
-  const payoutDates = [...new Set(payouts.map((p) => p.date))]
-
-  // ================= FILTERED PAYOUTS =================
-  const filteredPayouts = payouts.filter((p) => {
-    const netAmount = p.amount - p.amount * 0.05
-
-    // ✅ Amount filter
-    if (amountFilter === '200' && netAmount < 200) return false
-
-    // ✅ Date filter (only if selected)
-    if (selectedDate && p.date !== selectedDate) return false
-
-    return true
-  })
-
-  // ================= TOTAL PAYOUT =================
-  const totalPayoutAmount = filteredPayouts.reduce(
-    (sum, p) => sum + (p.amount - p.amount * 0.05),
-    0,
-  )
-
-  // ================= GENERATE PAYOUT =================
+  // Generate payouts
   const handleGeneratePayout = async () => {
     try {
       setGenerating(true)
       const res = await axios.post(`${ROOT_URL}/api/payout/run`)
-
       if (res.data.success) {
         swal('Success', res.data.message, 'success')
         fetchPayouts()
@@ -100,24 +74,23 @@ function Payout() {
     }
   }
 
-  // ================= UPDATE STATUS =================
+  // ✅ Update payout status API call
   const handleStatusUpdate = async (userId, payoutId, newStatus) => {
     try {
       setUpdating(payoutId)
-      const res = await axios.put(
-        `${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`,
-        { status: newStatus },
-      )
+      const res = await axios.put(`${ROOT_URL}/api/payout/status/${userId}/${payoutId}/status`, {
+        status: newStatus,
+      })
 
       if (res.data.success) {
         swal('Success', res.data.message, 'success')
-        fetchPayouts()
+        fetchPayouts() // refresh after update
       } else {
         swal('Error', res.data.message, 'error')
       }
     } catch (error) {
       console.error(error)
-      swal('Error', error.response?.data?.message || 'Update failed', 'error')
+      swal('Error', error.response.data.message , 'error')
     } finally {
       setUpdating(null)
     }
@@ -125,7 +98,6 @@ function Payout() {
 
   return (
     <>
-      {/* ================= HEADER ================= */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h5 className="fw-bold">All User Payouts</h5>
         <CButton
@@ -144,47 +116,6 @@ function Payout() {
         </CButton>
       </div>
 
-      {/* ================= FILTERS ================= */}
-      <div className="row mb-3">
-        {/* Amount Filter */}
-        <div className="col-md-3">
-          <label className="fw-bold">Amount Filter</label>
-          <select
-            className="form-select"
-            value={amountFilter}
-            onChange={(e) => setAmountFilter(e.target.value)}
-          >
-            <option value="200">₹200 & Above (After TDS)</option>
-            <option value="all">All Payouts</option>
-          </select>
-        </div>
-
-        {/* Date Filter */}
-        <div className="col-md-3">
-          <label className="fw-bold">Payout Date</label>
-          <select
-            className="form-select"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          >
-            <option value="">All Dates</option>
-            {payoutDates.map((date) => (
-              <option key={date} value={date}>
-                {date}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Total */}
-        <div className="col-md-3 d-flex align-items-end">
-          <div className="alert alert-success w-100 mb-0 text-center fw-bold">
-            Total Payout: ₹{totalPayoutAmount.toFixed(2)}
-          </div>
-        </div>
-      </div>
-
-      {/* ================= TABLE ================= */}
       {loading ? (
         <div className="text-center my-5">
           <CSpinner color="primary" />
@@ -197,34 +128,33 @@ function Payout() {
               <CTableHeaderCell>#</CTableHeaderCell>
               <CTableHeaderCell>User Name</CTableHeaderCell>
               <CTableHeaderCell>User ID</CTableHeaderCell>
-              <CTableHeaderCell>Payout Amount (₹)</CTableHeaderCell>
+              <CTableHeaderCell>Payout Amount(₹)</CTableHeaderCell>
               <CTableHeaderCell>Date</CTableHeaderCell>
-              <CTableHeaderCell>Net Amount (After TDS)</CTableHeaderCell>
+              <CTableHeaderCell>Total Amount(Amount-TDS(5%))</CTableHeaderCell>
               <CTableHeaderCell>Status</CTableHeaderCell>
               <CTableHeaderCell>Action</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
 
           <CTableBody className="text-center">
-            {filteredPayouts.length > 0 ? (
-              filteredPayouts.map((p, index) => (
+            {payouts.length > 0 ? (
+              payouts.map((p, index) => (
                 <CTableRow key={p.payoutId}>
                   <CTableDataCell>{index + 1}</CTableDataCell>
                   <CTableDataCell>{p.name}</CTableDataCell>
                   <CTableDataCell>{p.userId}</CTableDataCell>
                   <CTableDataCell>₹{p.amount}</CTableDataCell>
                   <CTableDataCell>{p.date}</CTableDataCell>
-                  <CTableDataCell>
-                    ₹{(p.amount - p.amount * 0.05).toFixed(2)}
-                  </CTableDataCell>
+                  <CTableDataCell>₹{(p.amount - p.amount * 0.05).toFixed(2) }</CTableDataCell>
+
                   <CTableDataCell>
                     <span
                       className={`badge px-3 py-2 ${
                         p.status === 'completed'
                           ? 'bg-success'
                           : p.status === 'pending'
-                          ? 'bg-warning text-dark'
-                          : 'bg-secondary'
+                            ? 'bg-warning text-dark'
+                            : 'bg-secondary'
                       }`}
                     >
                       {p.status}
@@ -232,7 +162,7 @@ function Payout() {
                   </CTableDataCell>
                   <CTableDataCell>
                     {p.status === 'completed' ? (
-                      <CButton size="sm" disabled>
+                      <CButton color="secondary" size="sm" disabled>
                         Completed
                       </CButton>
                     ) : (
@@ -240,16 +170,14 @@ function Payout() {
                         color="primary"
                         size="sm"
                         disabled={updating === p.payoutId}
-                        onClick={() =>
-                          handleStatusUpdate(p.userId, p.payoutId, 'completed')
-                        }
+                        onClick={() => handleStatusUpdate(p.userId, p.payoutId, 'completed')}
                       >
                         {updating === p.payoutId ? (
                           <>
                             <CSpinner size="sm" /> Updating...
                           </>
                         ) : (
-                          'Mark Completed'
+                          ' Completed'
                         )}
                       </CButton>
                     )}
@@ -258,7 +186,7 @@ function Payout() {
               ))
             ) : (
               <CTableRow>
-                <CTableDataCell colSpan="8" className="text-muted">
+                <CTableDataCell colSpan="7" className="text-muted">
                   No payouts found
                 </CTableDataCell>
               </CTableRow>

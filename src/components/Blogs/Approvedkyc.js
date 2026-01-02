@@ -27,6 +27,7 @@ const Approvedkyc = () => {
         // Filter only verified users
         const verifiedUsers = res.data.data.filter((user) => user.status === 'verified')
         setUsers(verifiedUsers)
+        console.log('Verified KYC users:', verifiedUsers)
       }
       setLoading(false)
     } catch (error) {
@@ -70,7 +71,9 @@ const Approvedkyc = () => {
               <CTableHeaderCell>User ID</CTableHeaderCell>
               <CTableHeaderCell>Name</CTableHeaderCell>
               <CTableHeaderCell>Bank Name</CTableHeaderCell>
+              <CTableHeaderCell>Branch Name</CTableHeaderCell>
                <CTableHeaderCell>Account No</CTableHeaderCell>
+                <CTableHeaderCell>Ifsc Code</CTableHeaderCell>
               <CTableHeaderCell>KYC Status</CTableHeaderCell>
             </CTableRow>
           </CTableHead>
@@ -81,7 +84,9 @@ const Approvedkyc = () => {
                 <CTableDataCell>{user.userId}</CTableDataCell>
                 <CTableDataCell>{user.name}</CTableDataCell>
                 <CTableDataCell>{user.bankName}</CTableDataCell>
-                 <CTableDataCell>{user.accountNo}</CTableDataCell>
+                 <CTableDataCell>{user.branchName}</CTableDataCell>
+                <CTableDataCell>{user.accountNo}</CTableDataCell>
+                <CTableDataCell>{user.ifscCode}</CTableDataCell>
                 <CTableDataCell>
                   <span
                     style={{

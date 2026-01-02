@@ -34,19 +34,18 @@ const Charts = () => {
   // const december = 500000;
   return (
     <CRow>
-     
       <CCol xs={6} >
         <CCard className="mb-4">
           <CCardHeader>Bar Chart</CCardHeader>
           <CCardBody>
             <CChartBar
               data={{
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: [ 'November', 'December', 'January'],
                 datasets: [
                   {
                     label: 'Amount',
                     backgroundColor: '#f87979',
-                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32804, december ],
+                    data: [ 32804,78470, december],
                   },
                 ],
               }}

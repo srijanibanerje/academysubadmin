@@ -23,8 +23,34 @@ import MainChart from './MainChart'
 import Charts from "../charts/Charts"
 
 const Dashboard = () => {
+ const ROOT_URL = import.meta.env.VITE_LOCALHOST_URL;
+ const [courseCount, setCourseCount] = useState({});
+useEffect(() => {
+  const fetchUserPurchases = async () => {
+    try {
+      const res = await axios.get(`${ROOT_URL}/api/users/all`);
 
- 
+      const users = res.data.data; // API returns array directly
+
+      const countMap = {};
+
+      users.forEach((user) => {
+        const packageName = user?.courseDetails?.packageName;
+
+        if (packageName) {
+          countMap[packageName] = (countMap[packageName] || 0) + 1;
+        }
+      });
+
+      setCourseCount(countMap);
+    } catch (error) {
+      console.error('Error fetching users:', error);
+    }
+  };
+
+  fetchUserPurchases();
+}, []);
+
   
   // console.log(ROOT_URL)
 
@@ -87,52 +113,61 @@ const Dashboard = () => {
             <CTableHead>
               <CTableRow>
                
-                <CTableHeaderCell scope="col">Course name</CTableHeaderCell>
-                 <CTableHeaderCell scope="col">GST</CTableHeaderCell>
-                 <CTableHeaderCell scope="col">Actual Price</CTableHeaderCell>
-                <CTableHeaderCell scope="col">Course price</CTableHeaderCell>
+                <CTableHeaderCell scope="col"  className='text-center'>Course name</CTableHeaderCell>
+                 <CTableHeaderCell scope="col"  className='text-center'>GST</CTableHeaderCell>
+                 <CTableHeaderCell scope="col"  className='text-center'>Actual Price</CTableHeaderCell>
+                <CTableHeaderCell scope="col"  className='text-center'>Course price</CTableHeaderCell>
+                <CTableHeaderCell scope="col" className='text-center'>Purchased Users</CTableHeaderCell>
+
                 
              </CTableRow>
             </CTableHead>
             <CTableBody>
             <CTableRow active >
-                <CTableDataCell>Learner Course</CTableDataCell>
+                <CTableDataCell  className='text-center'>Learner Course</CTableDataCell>
                 
-                <CTableDataCell>270/-</CTableDataCell>
-                <CTableDataCell>1500/-</CTableDataCell>
+                <CTableDataCell  className='text-center'>270/-</CTableDataCell>
+                <CTableDataCell className='text-center'>1500/-</CTableDataCell>
 
-                <CTableDataCell>1770/-</CTableDataCell>
-            </CTableRow>
-            <CTableRow >
-                <CTableDataCell>Master Course</CTableDataCell>
-                 <CTableDataCell>540/-</CTableDataCell>
-                  <CTableDataCell>3000/-</CTableDataCell>
-                <CTableDataCell>3540/-</CTableDataCell>
-            </CTableRow>
-            <CTableRow >
-                <CTableDataCell>Pro Master Course</CTableDataCell>
-                <CTableDataCell>1080/-</CTableDataCell>
-                 <CTableDataCell>6000/-</CTableDataCell>
-                <CTableDataCell>7080/-</CTableDataCell>
-            </CTableRow>
-            <CTableRow >
-                <CTableDataCell>Teacher Course</CTableDataCell>
-                <CTableDataCell>1800/-</CTableDataCell>
-                 <CTableDataCell>10000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>1770/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Learner Course'] || 0}</CTableDataCell>
 
-                <CTableDataCell>11800/-</CTableDataCell>
             </CTableRow>
             <CTableRow >
-                <CTableDataCell>Pro Teacher Course</CTableDataCell>
-                <CTableDataCell>9000/-</CTableDataCell>
-                  <CTableDataCell>50000/-</CTableDataCell>
-                <CTableDataCell>59000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>Master Course</CTableDataCell>
+                 <CTableDataCell className='text-center'>540/-</CTableDataCell>
+                  <CTableDataCell className='text-center'>3000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>3540/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Master Course'] || 0}</CTableDataCell>
             </CTableRow>
             <CTableRow >
-                <CTableDataCell>Monthly Subcription</CTableDataCell>
-                <CTableDataCell>144/-</CTableDataCell>
-                 <CTableDataCell>800/-</CTableDataCell>
-                <CTableDataCell>944/-</CTableDataCell>
+                <CTableDataCell className='text-center'>Pro Master Course</CTableDataCell>
+                <CTableDataCell className='text-center'>1080/-</CTableDataCell>
+                 <CTableDataCell className='text-center'>6000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>7080/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Pro Master Course'] || 0}</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell className='text-center'>Teacher Course</CTableDataCell>
+                <CTableDataCell className='text-center'>1800/-</CTableDataCell>
+                 <CTableDataCell className='text-center'>10000/-</CTableDataCell>
+
+                <CTableDataCell className='text-center'>11800/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Teacher Course'] || 0}</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell className='text-center'>Pro Teacher Course</CTableDataCell>
+                <CTableDataCell className='text-center'>9000/-</CTableDataCell>
+                  <CTableDataCell className='text-center'>50000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>59000/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Pro Teacher Course'] || 0}</CTableDataCell>
+            </CTableRow>
+            <CTableRow >
+                <CTableDataCell className='text-center'>Monthly Subscription</CTableDataCell>
+                <CTableDataCell className='text-center'>144/-</CTableDataCell>
+                 <CTableDataCell className='text-center'>800/-</CTableDataCell>
+                <CTableDataCell className='text-center'>944/-</CTableDataCell>
+                <CTableDataCell className='text-center'>{courseCount['Monthly Subscription'] || 0}</CTableDataCell>
             </CTableRow>
              {/* {
               productdata.map((product) => {

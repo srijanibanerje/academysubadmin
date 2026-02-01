@@ -40,12 +40,12 @@ const Charts = () => {
           <CCardBody>
             <CChartBar
               data={{
-                labels: [ 'November', 'December', 'January'],
+                labels: [ 'November', 'December', 'January', 'February'],
                 datasets: [
                   {
                     label: 'Amount',
                     backgroundColor: '#f87979',
-                    data: [ 32804,78470, december],
+                    data: [ 32804,78470, 56994, december],
                   },
                 ],
               }}

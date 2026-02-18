@@ -60,25 +60,25 @@ const WidgetsDropdown = (props) => {
             />
           </CCol>
 
-          <CCol sm={6} xl={4} xxl={3}>
+          {/* <CCol sm={6} xl={4} xxl={3}>
             <CWidgetStatsA
               className="widgetheight"
               color="info"
               title="Total Amount"
               value={<span className="h2">₹{stats.totalAmount}</span>}
             />
-          </CCol>
+          </CCol> */}
 
-          <CCol sm={6} xl={4} xxl={3}>
+          {/* <CCol sm={6} xl={4} xxl={3}>
             <CWidgetStatsA
               className="widgetheight"
               color="warning"
               title={`Amount (${stats.currentMonth})`}
               value={<span className="h2">₹{stats.currentMonthAmount}</span>}
             />
-          </CCol>
+          </CCol> */}
 
-          <CCol sm={6} xl={4} xxl={3}>
+          {/* <CCol sm={6} xl={4} xxl={3}>
             <CWidgetStatsA
               className="widgetheight"
               color="danger"
@@ -89,7 +89,7 @@ const WidgetsDropdown = (props) => {
                 </span>
               }
             />
-          </CCol>
+          </CCol> */}
         </>
       )}
     </CRow>

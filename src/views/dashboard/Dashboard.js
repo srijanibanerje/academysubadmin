@@ -104,7 +104,7 @@ useEffect(() => {
   return (
     <>
       <WidgetsDropdown className="mb-4" />
-      <Charts/>
+      {/* <Charts/> */}
         <CCardHeader>
           <h5 className='text-center mb-2'>All Packages</h5>
         </CCardHeader>

@@ -1,6 +1,11 @@
 /* eslint-disable prettier/prettier */
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+
 import {
   CCardHeader,
   CTable,
@@ -34,6 +39,7 @@ const Userlist = () => {
     }
   }
 
+  
   useEffect(() => {
     fetchUsers()
   }, [])
@@ -64,6 +70,32 @@ const Userlist = () => {
   })
 
 
+const downloadUsersPDF = () => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(16);
+  doc.text("User List (Name & Phone)", 14, 15);
+
+  const tableColumn = ["S/N", "Name", "Phone"];
+  const tableRows = [];
+
+  filteredUsers.forEach((user, index) => {
+    tableRows.push([
+      index + 1,
+      user.name || "N/A",
+      user.phone || "N/A",
+    ]);
+  });
+
+  autoTable(doc, {
+    head: [tableColumn],
+    body: tableRows,
+    startY: 25,
+  });
+
+  doc.save("users-name-phone.pdf");
+};
+
 
   if (loading) return <p className="text-center mt-5">Loading users...</p>
 
@@ -77,6 +109,10 @@ const Userlist = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+        <button className="btn btn-success ms-2" onClick={downloadUsersPDF}>
+  Download PDF
+</button>
+
       </CCardHeader>
 
       {filteredUsers.length > 0 ? (

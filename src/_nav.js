@@ -42,32 +42,32 @@ const _nav = [
   //   to: '/Addteacher',
   //   icon: <CIcon icon={cilPencil} customClassName="nav-icon" />,
   // },
-  {
-    component: CNavTitle,
-    name: 'User',
-  },
-  {
-    component: CNavItem,
-    name: 'All Users',
-    to: '/userlist',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavItem,
-    name: 'Pending Users',
-    to: '/Pendinguser',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
-  {
-    component: CNavTitle,
-    name: 'Payout',
-  },
-  {
-    component: CNavItem,
-    name: 'All payouts',
-    to: '/payout',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'User',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All Users',
+  //   to: '/userlist',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'Pending Users',
+  //   to: '/Pendinguser',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Payout',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'All payouts',
+  //   to: '/payout',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
   
   {
     component: CNavTitle,
@@ -91,16 +91,16 @@ const _nav = [
     to: '/rejectedkyc',
     icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
   },
-  {
-    component: CNavTitle,
-    name: 'Rank',
-  },
-  {
-    component: CNavItem,
-    name: 'AllRankusers',
-    to: '/rankusers',
-    icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
-  },
+  // {
+  //   component: CNavTitle,
+  //   name: 'Rank',
+  // },
+  // {
+  //   component: CNavItem,
+  //   name: 'AllRankusers',
+  //   to: '/rankusers',
+  //   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />,
+  // },
 
   
   // {

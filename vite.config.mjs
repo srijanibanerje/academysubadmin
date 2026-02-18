@@ -56,7 +56,7 @@ export default defineConfig(({ mode }) => {
     },
     preview: {
       port: 5000,
-      allowedHosts: ['https://academysubadmin.onrender.com'], // ✅ add your Render domain here
+      allowedHosts: ['academysubadmin.onrender.com'], // ✅ add your Render domain here
     },
   }
 })
